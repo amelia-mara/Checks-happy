@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", closeMenuIfClickedOutside);
 });
 
-const GRID_SIZE = 220; // Grid spacing to match iPad layout
+const GRID_SIZE = 220; // Grid spacing for widget snapping
+const COLUMN_COUNT = 3; // Number of columns in the grid
 
 /* Go back to main page */
 function goBack() {
@@ -35,8 +36,6 @@ function addWidget(widgetId) {
     let widget = document.createElement("div");
     widget.classList.add("widget");
     widget.id = widgetId;
-    widget.style.left = "0px";
-    widget.style.top = "0px";
     widget.innerHTML = `<span>${widgetId.replace("-", " ").toUpperCase()}</span>`;
 
     let deleteBtn = document.createElement("button");
@@ -57,7 +56,7 @@ function removeWidget(widgetId) {
     saveWidgets();
 }
 
-/* Make widgets draggable with smooth grid snapping */
+/* Make widgets draggable with true grid snapping */
 function makeWidgetDraggable(widget) {
     let offsetX, offsetY, startX, startY;
 
@@ -85,8 +84,15 @@ function makeWidgetDraggable(widget) {
         let y = touch.clientY - offsetY;
 
         // Snap to grid
-        widget.style.left = Math.round(x / GRID_SIZE) * GRID_SIZE + "px";
-        widget.style.top = Math.round(y / GRID_SIZE) * GRID_SIZE + "px";
+        let snappedX = Math.round(x / GRID_SIZE) * GRID_SIZE;
+        let snappedY = Math.round(y / GRID_SIZE) * GRID_SIZE;
+
+        // Ensure it stays within grid limits
+        snappedX = Math.max(0, Math.min(snappedX, (COLUMN_COUNT - 1) * GRID_SIZE));
+        snappedY = Math.max(0, snappedY);
+
+        widget.style.left = snappedX + "px";
+        widget.style.top = snappedY + "px";
     }
 
     function stopDrag() {
@@ -98,7 +104,7 @@ function makeWidgetDraggable(widget) {
     }
 }
 
-/* Save & load widget positions */
+/* Save & load widgets in grid positions */
 function saveWidgets() {
     let widgets = [];
     document.querySelectorAll(".widget").forEach(widget => {
