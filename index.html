@@ -1,71 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checks Happy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        .upload-btn {
+            display: block;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .upload-btn:hover {
+            background-color: #218838;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .project-card {
+            background: #ffffff;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        #file-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Checks Happy</h1>
+        <button class="upload-btn" onclick="document.getElementById('file-input').click();">Upload File</button>
+        <input type="file" id="file-input" onchange="handleFileUpload(event)">
+        <div class="projects-grid">
+            <div class="project-card">Project 1</div>
+            <div class="project-card">Project 2</div>
+            <div class="project-card">Project 3</div>
+            <div class="project-card">Project 4</div>
+            <div class="project-card">Project 5</div>
+            <div class="project-card">Project 6</div>
+        </div>
+    </div>
 
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Checks Happy</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    text-align: center;
-                    padding: 50px;
-                }
-                .container {
-                    max-width: 600px;
-                    margin: auto;
-                    background: white;
-                    padding: 20px;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    border-radius: 10px;
-                }
-                h1 {
-                    color: #333;
-                }
-                .new-project {
-                    display: block;
-                    width: 100%;
-                    background-color: #007BFF;
-                    color: white;
-                    border: none;
-                    padding: 15px;
-                    font-size: 16px;
-                    margin-top: 20px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    text-decoration: none;
-                }
-                .new-project:hover {
-                    background-color: #0056b3;
-                }
-                .projects-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 10px;
-                    margin-top: 20px;
-                }
-                .project-card {
-                    background: #ffffff;
-                    padding: 15px;
-                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-                    border-radius: 5px;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <h1>Welcome to Checks Happy</h1>
-                <a href="#" class="new-project">+ New Project</a>
-                <div class="projects-grid">
-                    <div class="project-card">Project 1</div>
-                    <div class="project-card">Project 2</div>
-                    <div class="project-card">Project 3</div>
-                    <div class="project-card">Project 4</div>
-                    <div class="project-card">Project 5</div>
-                    <div class="project-card">Project 6</div>
-                </div>
-            </div>
-        </body>
-        </html>
-        
+    <script>
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert(`File selected: ${file.name}`);
+                // Implement actual upload logic here (e.g., send to server)
+            }
+        }
+    </script>
+</body>
+</html>
