@@ -4,135 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checks Happy</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        .upload-btn {
+            display: block;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .upload-btn:hover {
+            background-color: #218838;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .project-card {
+            background: #ffffff;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        #file-input {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to Checks Happy</h1>
-        <div class="upload-area" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
-            <button class="upload-btn" onclick="document.getElementById('file-input').click();">Upload Script</button>
-            <p>or drag and drop your file here</p>
-            <input type="file" id="file-input" onchange="handleFileUpload(event)">
-        </div>
+        <button class="upload-btn" onclick="document.getElementById('file-input').click();">Upload Script</button>
+        <input type="file" id="file-input" onchange="handleFileUpload(event)">
         <div class="projects-grid" id="projects-grid"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const projectsGrid = document.getElementById('projects-grid');
+                
+                const projectCard = document.createElement('div');
+                projectCard.classList.add('project-card');
+                projectCard.innerHTML = `<strong>${file.name}</strong><br><small>${new Date().toLocaleDateString()}</small>`;
+                
+                projectsGrid.appendChild(projectCard);
+            }
+        }
+    </script>
 </body>
 </html>
-/* styles.css */
-body {
-    font-family: 'Lexend', sans-serif; /* ADHD & dyslexia-friendly font */
-    background-color: #f4f4f4;
-    text-align: center;
-    padding: 50px;
-}
-.container {
-    max-width: 600px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-h1 {
-    color: #333;
-}
-.upload-area {
-    border: 2px dashed #28a745;
-    padding: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.upload-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 15px;
-    font-size: 16px;
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-}
-.upload-btn:hover {
-    background-color: #218838;
-}
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-.project-card {
-    background: #ffffff;
-    padding: 15px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.actions {
-    margin-top: 10px;
-}
-button {
-    cursor: pointer;
-    margin: 5px;
-}
-// script.js
-document.addEventListener("DOMContentLoaded", loadProjects);
-
-function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-        saveProject(file.name);
-    }
-}
-
-function handleDrop(event) {
-    event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    if (file) {
-        saveProject(file.name);
-    }
-}
-
-function saveProject(fileName) {
-    let projects = JSON.parse(localStorage.getItem("projects")) || [];
-    projects.push({ name: fileName, date: new Date().toLocaleDateString() });
-    localStorage.setItem("projects", JSON.stringify(projects));
-    loadProjects();
-}
-
-function loadProjects() {
-    const projectsGrid = document.getElementById("projects-grid");
-    projectsGrid.innerHTML = "";
-    let projects = JSON.parse(localStorage.getItem("projects")) || [];
-
-    projects.forEach((project, index) => {
-        const projectCard = document.createElement("div");
-        projectCard.classList.add("project-card");
-        projectCard.innerHTML = `
-            <strong contenteditable="true" onblur="renameProject(${index}, this.innerText)">${project.name}</strong>
-            <br><small>${project.date}</small>
-            <div class="actions">
-                <button onclick="deleteProject(${index})">Delete</button>
-            </div>
-        `;
-        projectsGrid.appendChild(projectCard);
-    });
-}
-
-function renameProject(index, newName) {
-    let projects = JSON.parse(localStorage.getItem("projects"));
-    projects[index].name = newName;
-    localStorage.setItem("projects", JSON.stringify(projects));
-}
-
-function deleteProject(index) {
-    let projects = JSON.parse(localStorage.getItem("projects"));
-    projects.splice(index, 1);
-    localStorage.setItem("projects", JSON.stringify(projects));
-    loadProjects();
-}
