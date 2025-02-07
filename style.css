@@ -1,4 +1,4 @@
-/* Smooth iPad-Style Look */
+/* iPad-Style Look */
 body {
     font-family: 'Lexend', sans-serif;
     background: linear-gradient(135deg, #dfe9f3, #ffffff);
@@ -20,7 +20,7 @@ body {
 .dashboard-widgets {
     display: grid;
     grid-template-columns: repeat(3, 220px); /* 3 columns */
-    grid-auto-rows: 220px; /* Keep consistent row height */
+    grid-auto-rows: 220px;
     gap: 10px;
     justify-content: center;
     position: relative;
