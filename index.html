@@ -1,179 +1,45 @@
-
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Checks Happy</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    text-align: center;
-                    padding: 50px;
-                }
-                .container {
-                    max-width: 800px;
-                    margin: auto;
-                    background: white;
-                    padding: 20px;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                    border-radius: 10px;
-                }
-                h1 {
-                    color: #333;
-                }
-                .new-project {
-                    display: block;
-                    width: 100%;
-                    background-color: #007BFF;
-                    color: white;
-                    border: none;
-                    padding: 15px;
-                    font-size: 16px;
-                    margin-top: 20px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    text-decoration: none;
-                }
-                .new-project:hover {
-                    background-color: #0056b3;
-                }
-                .projects-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 10px;
-                    margin-top: 20px;
-                }
-                .project-card {
-                    background: #ffffff;
-                    padding: 15px;
-                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-                    border-radius: 5px;
-                    position: relative;
-                }
-                .project-card img {
-                    width: 100%;
-                    border-radius: 5px;
-                }
-                .project-card .options {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background: rgba(0, 0, 0, 0.7);
-                    color: white;
-                    padding: 5px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
-                #fileInput {
-                    display: none;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <h1>Welcome to Checks Happy</h1>
-                <button class="new-project" onclick="document.getElementById('fileInput').click();">+ New Project</button>
-                <input type="file" id="fileInput" accept=".pdf" onchange="handleFileUpload(event)">
-                <div class="projects-grid" id="projectsGrid"></div>
-            </div>
-            <script>
-                function handleFileUpload(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const projectGrid = document.getElementById("projectsGrid");
-                        const projectCard = document.createElement("div");
-                        projectCard.className = "project-card";
-                        
-                        const thumbnail = document.createElement("img");
-                        thumbnail.src = "https://via.placeholder.com/150?text=" + encodeURIComponent(file.name); // Placeholder image
-                        projectCard.appendChild(thumbnail);
-
-                        const projectTitle = document.createElement("div");
-                        projectTitle.innerText = file.name;
-                        projectCard.appendChild(projectTitle);
-
-                        const optionsMenu = document.createElement("div");
-                        optionsMenu.className = "options";
-                        optionsMenu.innerText = "⋮";
-                        optionsMenu.onclick = function() {
-                            showProjectOptions(file.name, projectCard);
-                        };
-                        projectCard.appendChild(optionsMenu);
-
-                        projectGrid.appendChild(projectCard);
-
-                        // Store project in local storage
-                        let projects = JSON.parse(localStorage.getItem("projects")) || [];
-                        projects.push({ name: file.name, thumbnail: thumbnail.src });
-                        localStorage.setItem("projects", JSON.stringify(projects));
-                    }
-                }
-
-                function showProjectOptions(projectName, projectCard) {
-                    const options = document.createElement("div");
-                    options.style.position = "absolute";
-                    options.style.top = "30px";
-                    options.style.right = "10px";
-                    options.style.background = "white";
-                    options.style.boxShadow = "0 0 5px rgba(0,0,0,0.2)";
-                    options.style.padding = "10px";
-                    options.style.borderRadius = "5px";
-
-                    const renameBtn = document.createElement("button");
-                    renameBtn.innerText = "Rename Project";
-                    renameBtn.onclick = function() {
-                        const newName = prompt("Enter new project name:", projectName);
-                        if (newName) {
-                            projectCard.querySelector("div").innerText = newName;
-                            let projects = JSON.parse(localStorage.getItem("projects"));
-                            projects = projects.map(p => p.name === projectName ? { ...p, name: newName } : p);
-                            localStorage.setItem("projects", JSON.stringify(projects));
-                        }
-                    };
-                    options.appendChild(renameBtn);
-
-                    const deleteBtn = document.createElement("button");
-                    deleteBtn.innerText = "Delete Project";
-                    deleteBtn.onclick = function() {
-                        projectCard.remove();
-                        let projects = JSON.parse(localStorage.getItem("projects"));
-                        projects = projects.filter(p => p.name !== projectName);
-                        localStorage.setItem("projects", JSON.stringify(projects));
-                    };
-                    options.appendChild(deleteBtn);
-
-                    document.body.appendChild(options);
-                }
-
-                window.onload = function() {
-                    let projects = JSON.parse(localStorage.getItem("projects")) || [];
-                    const projectGrid = document.getElementById("projectsGrid");
-                    projects.forEach(({ name, thumbnail }) => {
-                        const projectCard = document.createElement("div");
-                        projectCard.className = "project-card";
-                        
-                        const img = document.createElement("img");
-                        img.src = thumbnail;
-                        projectCard.appendChild(img);
-
-                        const projectTitle = document.createElement("div");
-                        projectTitle.innerText = name;
-                        projectCard.appendChild(projectTitle);
-
-                        const optionsMenu = document.createElement("div");
-                        optionsMenu.className = "options";
-                        optionsMenu.innerText = "⋮";
-                        optionsMenu.onclick = function() {
-                            showProjectOptions(name, projectCard);
-                        };
-                        projectCard.appendChild(optionsMenu);
-
-                        projectGrid.appendChild(projectCard);
-                    });
-                }
-            </script>
-        </body>
-        </html>
-        
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checks Happy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        .upload-section {
+            margin-top: 20px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Checks Happy</h1>
+        <button onclick="uploadFile()">+ New Project</button>
+        <div id="project-list"></div>
+    </div>
+    <script>
+        function uploadFile() {
+            alert("Upload functionality will be implemented soon!");
+        }
+    </script>
+</body>
+</html>
