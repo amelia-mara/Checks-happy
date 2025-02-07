@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     loadProjectDashboard();
-    makeWidgetsDraggable();
+    loadWidgets();
 });
 
 /* Load project info */
@@ -20,8 +20,6 @@ function loadProjectDashboard() {
     if (project) {
         document.getElementById("project-date").textContent = `Created on: ${project.date}`;
     }
-
-    loadWidgetPositions();
 }
 
 /* Go back to the main page */
@@ -29,76 +27,84 @@ function goBack() {
     window.location.href = "index.html";
 }
 
-/* Make widgets draggable (for both mouse & touch) */
-function makeWidgetsDraggable() {
-    const widgets = document.querySelectorAll(".widget");
+/* Toggle widget menu */
+function toggleMenu() {
+    let menu = document.getElementById("widget-menu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
 
-    widgets.forEach(widget => {
-        widget.style.position = "absolute"; // Ensures the widgets can be moved freely
-        widget.addEventListener("touchstart", startDrag, false);
-        widget.addEventListener("mousedown", startDrag, false);
-    });
+/* Add widget to the dashboard */
+function addWidget(widgetId) {
+    let dashboard = document.getElementById("dashboard-widgets");
 
-    function startDrag(event) {
-        event.preventDefault();
+    if (document.getElementById(widgetId)) return; // Prevent duplicates
 
-        let widget = event.target.closest(".widget");
-        if (!widget) return;
+    let widget = document.createElement("div");
+    widget.classList.add("widget");
+    widget.id = widgetId;
+    widget.textContent = widgetId.replace("-", " ").toUpperCase();
+    
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "❌";
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.onclick = () => removeWidget(widgetId);
 
-        let shiftX, shiftY;
+    widget.appendChild(deleteBtn);
+    dashboard.appendChild(widget);
+    
+    makeWidgetDraggable(widget);
+    saveWidgets();
+}
 
-        if (event.type === "touchstart") {
-            let touch = event.touches[0];
-            shiftX = touch.clientX - widget.getBoundingClientRect().left;
-            shiftY = touch.clientY - widget.getBoundingClientRect().top;
+/* Remove widget */
+function removeWidget(widgetId) {
+    document.getElementById(widgetId)?.remove();
+    saveWidgets();
+}
 
-            document.addEventListener("touchmove", onMove, false);
-            document.addEventListener("touchend", stopMove, false);
-        } else {
-            shiftX = event.clientX - widget.getBoundingClientRect().left;
-            shiftY = event.clientY - widget.getBoundingClientRect().top;
+/* Make widgets draggable */
+function makeWidgetDraggable(widget) {
+    widget.style.position = "absolute";
+    widget.addEventListener("touchstart", startDrag, false);
+    widget.addEventListener("mousedown", startDrag, false);
+}
 
-            document.addEventListener("mousemove", onMove, false);
-            document.addEventListener("mouseup", stopMove, false);
-        }
+function startDrag(event) {
+    event.preventDefault();
+    let widget = event.target.closest(".widget");
+    if (!widget) return;
 
-        function onMove(event) {
-            let pageX = event.type === "touchmove" ? event.touches[0].clientX : event.clientX;
-            let pageY = event.type === "touchmove" ? event.touches[0].clientY : event.clientY;
+    let shiftX = event.type === "touchstart" ? event.touches[0].clientX - widget.getBoundingClientRect().left : event.clientX - widget.getBoundingClientRect().left;
+    let shiftY = event.type === "touchstart" ? event.touches[0].clientY - widget.getBoundingClientRect().top : event.clientY - widget.getBoundingClientRect().top;
 
-            widget.style.left = pageX - shiftX + "px";
-            widget.style.top = pageY - shiftY + "px";
-        }
-
-        function stopMove() {
-            document.removeEventListener("mousemove", onMove, false);
-            document.removeEventListener("mouseup", stopMove, false);
-            document.removeEventListener("touchmove", onMove, false);
-            document.removeEventListener("touchend", stopMove, false);
-            saveWidgetPositions();
-        }
+    function onMove(event) {
+        let pageX = event.type.includes("touch") ? event.touches[0].clientX : event.clientX;
+        let pageY = event.type.includes("touch") ? event.touches[0].clientY : event.clientY;
+        widget.style.left = pageX - shiftX + "px";
+        widget.style.top = pageY - shiftY + "px";
     }
+
+    function stopMove() {
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", stopMove);
+        document.removeEventListener("touchmove", onMove);
+        document.removeEventListener("touchend", stopMove);
+        saveWidgets();
+    }
+
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", stopMove);
+    document.addEventListener("touchmove", onMove);
+    document.addEventListener("touchend", stopMove);
 }
 
-/* Save widget positions */
-function saveWidgetPositions() {
-    let widgetPositions = {};
-    document.querySelectorAll(".widget").forEach(widget => {
-        widgetPositions[widget.id] = {
-            left: widget.style.left,
-            top: widget.style.top
-        };
-    });
-    localStorage.setItem("widgetPositions", JSON.stringify(widgetPositions));
+/* Save & load widgets */
+function saveWidgets() {
+    let widgets = Array.from(document.querySelectorAll(".widget")).map(w => w.id);
+    localStorage.setItem("userWidgets", JSON.stringify(widgets));
 }
 
-/* Load widget positions on page refresh */
-function loadWidgetPositions() {
-    let widgetPositions = JSON.parse(localStorage.getItem("widgetPositions")) || {};
-    document.querySelectorAll(".widget").forEach(widget => {
-        if (widgetPositions[widget.id]) {
-            widget.style.left = widgetPositions[widget.id].left;
-            widget.style.top = widgetPositions[widget.id].top;
-        }
-    });
+function loadWidgets() {
+    let savedWidgets = JSON.parse(localStorage.getItem("userWidgets")) || [];
+    savedWidgets.forEach(addWidget);
 }
