@@ -65,6 +65,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            cursor: pointer;
         }
         .project-card:hover {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -178,6 +179,8 @@
             projects.forEach((project, index) => {
                 const projectCard = document.createElement("div");
                 projectCard.classList.add("project-card");
+                projectCard.onclick = () => openDashboard(project.name); // Make it clickable
+
                 projectCard.innerHTML = `
                     <div class="project-header">
                         <span class="project-title" title="${project.name}">${project.name}</span>
@@ -191,8 +194,13 @@
                         </div>
                     </div>
                     <div class="project-date">${project.date}</div>`;
+                
                 projectsGrid.appendChild(projectCard);
             });
+        }
+
+        function openDashboard(projectName) {
+            window.location.href = `dashboard.html?project=${encodeURIComponent(projectName)}`;
         }
 
         function renameProject(index) {
