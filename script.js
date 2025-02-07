@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", closeMenuIfClickedOutside);
 });
 
+let deleteMode = false; // Keeps track of delete mode
+
 /* Load project info */
 function loadProjectDashboard() {
     const params = new URLSearchParams(window.location.search);
@@ -16,11 +18,6 @@ function loadProjectDashboard() {
     }
 
     document.getElementById("project-title").textContent = projectName;
-    const projects = JSON.parse(localStorage.getItem("projects")) || [];
-    const project = projects.find(p => p.name === projectName);
-    if (project) {
-        document.getElementById("project-date").textContent = `Created on: ${project.date}`;
-    }
 }
 
 /* Go back to the main page */
@@ -55,19 +52,63 @@ function addWidget(widgetId) {
     widget.id = widgetId;
     widget.innerHTML = `<span>${widgetId.replace("-", " ").toUpperCase()}</span>`;
 
-    // Create delete button
-    let deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "❌";
-    deleteBtn.classList.add("delete-btn");
-    deleteBtn.onclick = function () {
-        removeWidget(widgetId);
-    };
+    // Add long press event for delete mode
+    widget.addEventListener("touchstart", startDeleteMode, false);
+    widget.addEventListener("mousedown", startDeleteMode, false);
 
-    widget.appendChild(deleteBtn);
     dashboard.appendChild(widget);
-
     makeWidgetDraggable(widget);
     saveWidgets();
+}
+
+/* Long Press to Activate Delete Mode */
+function startDeleteMode(event) {
+    let widget = event.target.closest(".widget");
+    if (!widget || deleteMode) return;
+
+    let pressTimer = setTimeout(() => {
+        activateDeleteMode();
+    }, 2000); // 2-second hold
+
+    function cancelPress() {
+        clearTimeout(pressTimer);
+    }
+
+    widget.addEventListener("mouseup", cancelPress, false);
+    widget.addEventListener("mouseleave", cancelPress, false);
+    widget.addEventListener("touchend", cancelPress, false);
+}
+
+/* Activate Delete Mode (Widgets Start Shaking) */
+function activateDeleteMode() {
+    deleteMode = true;
+    document.querySelectorAll(".widget").forEach(widget => {
+        widget.classList.add("shake");
+
+        // Add delete button
+        if (!widget.querySelector(".delete-btn")) {
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "❌";
+            deleteBtn.classList.add("delete-btn");
+            deleteBtn.onclick = function () {
+                removeWidget(widget.id);
+            };
+            widget.appendChild(deleteBtn);
+        }
+    });
+
+    // Click anywhere to exit delete mode
+    document.addEventListener("click", exitDeleteMode, { once: true });
+}
+
+/* Exit Delete Mode (Stops Shaking) */
+function exitDeleteMode() {
+    deleteMode = false;
+    document.querySelectorAll(".widget").forEach(widget => {
+        widget.classList.remove("shake");
+        let deleteBtn = widget.querySelector(".delete-btn");
+        if (deleteBtn) deleteBtn.remove();
+    });
 }
 
 /* Remove widget */
@@ -75,7 +116,7 @@ function removeWidget(widgetId) {
     let widget = document.getElementById(widgetId);
     if (widget) {
         widget.remove();
-        saveWidgets(); // Save the updated layout
+        saveWidgets();
     }
 }
 
@@ -89,10 +130,10 @@ function makeWidgetDraggable(widget) {
 function startDrag(event) {
     event.preventDefault();
     let widget = event.target.closest(".widget");
-    if (!widget) return;
+    if (!widget || deleteMode) return;
 
-    let shiftX = event.type === "touchstart" ? event.touches[0].clientX - widget.getBoundingClientRect().left : event.clientX - widget.getBoundingClientRect().left;
-    let shiftY = event.type === "touchstart" ? event.touches[0].clientY - widget.getBoundingClientRect().top : event.clientY - widget.getBoundingClientRect().top;
+    let shiftX = event.type.includes("touch") ? event.touches[0].clientX - widget.getBoundingClientRect().left : event.clientX - widget.getBoundingClientRect().left;
+    let shiftY = event.type.includes("touch") ? event.touches[0].clientY - widget.getBoundingClientRect().top : event.clientY - widget.getBoundingClientRect().top;
 
     function onMove(event) {
         let pageX = event.type.includes("touch") ? event.touches[0].clientX : event.clientX;
