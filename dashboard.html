@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+    <script defer src="script.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -12,12 +14,15 @@
         <h1 id="project-title">Project Dashboard</h1>
         <p id="project-date"></p>
 
-        <div class="dashboard-content">
-            <h2>Project Details</h2>
-            <p>This is where we will display details and features related to this project.</p>
+        <div class="dashboard-widgets">
+            <div class="widget" id="script-breakdown">📜 Script Breakdown</div>
+            <div class="widget" id="budgeting">💰 Budgeting</div>
+            <div class="widget" id="character-breakdown">🎭 Character Breakdown</div>
+            <div class="widget" id="lookbooks">📸 Look Books</div>
+            <div class="widget" id="continuity-tracker">🔄 Continuity Tracker</div>
+            <div class="widget" id="overtime-tracker">⏳ Overtime Tracker</div>
+            <div class="widget" id="schedule">📅 Schedule</div>
         </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
