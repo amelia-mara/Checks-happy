@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checks Happy</title>
     <style>
+        /* Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Lexend', sans-serif;
             background-color: #f4f4f4;
             text-align: center;
             padding: 50px;
@@ -22,15 +23,19 @@
         h1 {
             color: #333;
         }
+        .upload-area {
+            border: 2px dashed #28a745;
+            padding: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
         .upload-btn {
-            display: block;
-            width: 100%;
             background-color: #28a745;
             color: white;
             border: none;
             padding: 15px;
             font-size: 16px;
-            margin-top: 20px;
+            margin-top: 10px;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
@@ -50,8 +55,12 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
         }
-        #file-input {
-            display: none;
+        .actions {
+            margin-top: 10px;
+        }
+        .actions button {
+            cursor: pointer;
+            margin: 5px;
         }
     </style>
 </head>
@@ -59,22 +68,65 @@
     <div class="container">
         <h1>Welcome to Checks Happy</h1>
         <button class="upload-btn" onclick="document.getElementById('file-input').click();">Upload Script</button>
-        <input type="file" id="file-input" onchange="handleFileUpload(event)">
+        <input type="file" id="file-input" style="display: none;" onchange="handleFileUpload(event)">
         <div class="projects-grid" id="projects-grid"></div>
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", loadProjects);
+
         function handleFileUpload(event) {
             const file = event.target.files[0];
             if (file) {
-                const projectsGrid = document.getElementById('projects-grid');
-                
-                const projectCard = document.createElement('div');
-                projectCard.classList.add('project-card');
-                projectCard.innerHTML = `<strong>${file.name}</strong><br><small>${new Date().toLocaleDateString()}</small>`;
-                
-                projectsGrid.appendChild(projectCard);
+                saveProject(file.name);
             }
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            if (file) {
+                saveProject(file.name);
+            }
+        }
+
+        function saveProject(fileName) {
+            let projects = JSON.parse(localStorage.getItem("projects")) || [];
+            projects.push({ name: fileName, date: new Date().toLocaleDateString() });
+            localStorage.setItem("projects", JSON.stringify(projects));
+            loadProjects();
+        }
+
+        function loadProjects() {
+            const projectsGrid = document.getElementById("projects-grid");
+            projectsGrid.innerHTML = "";
+            let projects = JSON.parse(localStorage.getItem("projects")) || [];
+            projects.forEach((project, index) => {
+                const projectCard = document.createElement("div");
+                projectCard.classList.add("project-card");
+                projectCard.innerHTML = `<strong>${project.name}</strong><br><small>${project.date}</small> 
+                    <div class="actions">
+                        <button onclick="renameProject(${index}, prompt('New name:'))">Rename</button>
+                        <button onclick="deleteProject(${index})">Delete</button>
+                    </div>`;
+                projectsGrid.appendChild(projectCard);
+            });
+        }
+
+        function renameProject(index, newName) {
+            let projects = JSON.parse(localStorage.getItem("projects"));
+            if (newName) {
+                projects[index].name = newName;
+                localStorage.setItem("projects", JSON.stringify(projects));
+                loadProjects();
+            }
+        }
+
+        function deleteProject(index) {
+            let projects = JSON.parse(localStorage.getItem("projects"));
+            projects.splice(index, 1);
+            localStorage.setItem("projects", JSON.stringify(projects));
+            loadProjects();
         }
     </script>
 </body>
