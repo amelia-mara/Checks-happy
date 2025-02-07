@@ -1,4 +1,42 @@
+/* Widget Menu */
+.menu-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.widget-menu {
+    display: none;
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.widget-menu button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    text-align: left;
+    background: white;
+    cursor: pointer;
+}
+
+.widget-menu button:hover {
+    background: #f1f1f1;
+}
+
+/* Widget Delete Button */
 .widget {
+    position: absolute;
     width: 200px;
     height: 100px;
     background: #f4f4f4;
@@ -13,9 +51,22 @@
     user-select: none;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
-    touch-action: none; /* Prevents scrolling while dragging */
+    touch-action: none;
 }
 
-.widget:active {
-    cursor: grabbing;
+.widget:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.widget .delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
