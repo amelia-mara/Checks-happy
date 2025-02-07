@@ -1,51 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("projects-grid")) {
-        loadProjects();
-    }
-    if (document.getElementById("project-title")) {
-        loadProjectDashboard();
-    }
+    loadProjectDashboard();
+    makeWidgetsDraggable();
 });
-
-function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (file) saveProject(file.name);
-}
-
-function saveProject(fileName) {
-    if (!fileName.trim()) return alert("Invalid file name.");
-    let projects = JSON.parse(localStorage.getItem("projects")) || [];
-
-    if (projects.some(project => project.name === fileName)) {
-        return alert("This file is already uploaded.");
-    }
-
-    projects.push({ name: fileName, date: new Date().toLocaleDateString() });
-    localStorage.setItem("projects", JSON.stringify(projects));
-    loadProjects();
-}
-
-function loadProjects() {
-    const projectsGrid = document.getElementById("projects-grid");
-    projectsGrid.innerHTML = "";
-    let projects = JSON.parse(localStorage.getItem("projects")) || [];
-
-    projects.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    projects.forEach((project) => {
-        const projectCard = document.createElement("div");
-        projectCard.classList.add("project-card");
-        projectCard.innerHTML = `
-            <span class="project-title">${project.name}</span>
-            <div class="project-date">${project.date}</div>`;
-        projectCard.onclick = () => openDashboard(project.name);
-        projectsGrid.appendChild(projectCard);
-    });
-}
-
-function openDashboard(projectName) {
-    window.location.href = `dashboard.html?project=${encodeURIComponent(projectName)}`;
-}
 
 function loadProjectDashboard() {
     const params = new URLSearchParams(window.location.search);
@@ -63,8 +19,64 @@ function loadProjectDashboard() {
     if (project) {
         document.getElementById("project-date").textContent = `Created on: ${project.date}`;
     }
+
+    loadWidgetPositions();
 }
 
 function goBack() {
     window.location.href = "index.html";
+}
+
+function makeWidgetsDraggable() {
+    const widgets = document.querySelectorAll(".widget");
+
+    widgets.forEach(widget => {
+        widget.onmousedown = function (event) {
+            widget.style.position = "absolute";
+            widget.style.zIndex = 1000;
+
+            function moveAt(pageX, pageY) {
+                widget.style.left = pageX - widget.offsetWidth / 2 + "px";
+                widget.style.top = pageY - widget.offsetHeight / 2 + "px";
+            }
+
+            moveAt(event.pageX, event.pageY);
+
+            function onMouseMove(event) {
+                moveAt(event.pageX, event.pageY);
+            }
+
+            document.addEventListener("mousemove", onMouseMove);
+
+            widget.onmouseup = function () {
+                document.removeEventListener("mousemove", onMouseMove);
+                widget.onmouseup = null;
+                saveWidgetPositions();
+            };
+        };
+    });
+}
+
+/* Save Widget Positions */
+function saveWidgetPositions() {
+    let widgetPositions = {};
+    document.querySelectorAll(".widget").forEach(widget => {
+        widgetPositions[widget.id] = {
+            left: widget.style.left,
+            top: widget.style.top
+        };
+    });
+    localStorage.setItem("widgetPositions", JSON.stringify(widgetPositions));
+}
+
+/* Load Widget Positions */
+function loadWidgetPositions() {
+    let widgetPositions = JSON.parse(localStorage.getItem("widgetPositions")) || {};
+    document.querySelectorAll(".widget").forEach(widget => {
+        if (widgetPositions[widget.id]) {
+            widget.style.position = "absolute";
+            widget.style.left = widgetPositions[widget.id].left;
+            widget.style.top = widgetPositions[widget.id].top;
+        }
+    });
 }
