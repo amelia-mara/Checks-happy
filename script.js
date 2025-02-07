@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", closeMenuIfClickedOutside);
 });
 
+const GRID_SIZE = 220; // Grid spacing to match iPad layout
+
 /* Go back to main page */
 function goBack() {
     window.location.href = "index.html";
@@ -33,6 +35,8 @@ function addWidget(widgetId) {
     let widget = document.createElement("div");
     widget.classList.add("widget");
     widget.id = widgetId;
+    widget.style.left = "0px";
+    widget.style.top = "0px";
     widget.innerHTML = `<span>${widgetId.replace("-", " ").toUpperCase()}</span>`;
 
     let deleteBtn = document.createElement("button");
@@ -44,7 +48,6 @@ function addWidget(widgetId) {
     dashboard.appendChild(widget);
 
     makeWidgetDraggable(widget);
-    makeWidgetResizable(widget);
     saveWidgets();
 }
 
@@ -54,41 +57,68 @@ function removeWidget(widgetId) {
     saveWidgets();
 }
 
-/* Dragging Widgets */
+/* Make widgets draggable with smooth grid snapping */
 function makeWidgetDraggable(widget) {
-    let offsetX, offsetY;
+    let offsetX, offsetY, startX, startY;
 
     widget.addEventListener("touchstart", startDrag, false);
     widget.addEventListener("mousedown", startDrag, false);
 
     function startDrag(event) {
+        event.preventDefault();
+
         let touch = event.touches ? event.touches[0] : event;
+        startX = touch.clientX;
+        startY = touch.clientY;
         offsetX = touch.clientX - widget.getBoundingClientRect().left;
         offsetY = touch.clientY - widget.getBoundingClientRect().top;
 
         document.addEventListener("mousemove", moveWidget, false);
         document.addEventListener("mouseup", stopDrag, false);
+        document.addEventListener("touchmove", moveWidget, false);
+        document.addEventListener("touchend", stopDrag, false);
     }
 
     function moveWidget(event) {
         let touch = event.touches ? event.touches[0] : event;
-        widget.style.left = touch.clientX - offsetX + "px";
-        widget.style.top = touch.clientY - offsetY + "px";
+        let x = touch.clientX - offsetX;
+        let y = touch.clientY - offsetY;
+
+        // Snap to grid
+        widget.style.left = Math.round(x / GRID_SIZE) * GRID_SIZE + "px";
+        widget.style.top = Math.round(y / GRID_SIZE) * GRID_SIZE + "px";
     }
 
     function stopDrag() {
         document.removeEventListener("mousemove", moveWidget, false);
         document.removeEventListener("mouseup", stopDrag, false);
+        document.removeEventListener("touchmove", moveWidget, false);
+        document.removeEventListener("touchend", stopDrag, false);
         saveWidgets();
     }
 }
 
-/* Save & load widgets */
+/* Save & load widget positions */
 function saveWidgets() {
-    let widgets = Array.from(document.querySelectorAll(".widget")).map(w => w.id);
+    let widgets = [];
+    document.querySelectorAll(".widget").forEach(widget => {
+        widgets.push({
+            id: widget.id,
+            left: widget.style.left,
+            top: widget.style.top
+        });
+    });
     localStorage.setItem("userWidgets", JSON.stringify(widgets));
 }
 
 function loadWidgets() {
-    JSON.parse(localStorage.getItem("userWidgets") || "[]").forEach(addWidget);
+    let savedWidgets = JSON.parse(localStorage.getItem("userWidgets")) || [];
+    savedWidgets.forEach(widgetData => {
+        addWidget(widgetData.id);
+        let widget = document.getElementById(widgetData.id);
+        if (widget) {
+            widget.style.left = widgetData.left;
+            widget.style.top = widgetData.top;
+        }
+    });
 }
