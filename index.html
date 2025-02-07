@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checks Happy</title>
     <style>
-        /* Styles */
+        /* General Styles */
         body {
             font-family: 'Lexend', sans-serif;
             background-color: #f4f4f4;
@@ -19,15 +19,10 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            position: relative;
         }
         h1 {
             color: #333;
-        }
-        .upload-area {
-            border: 2px dashed #28a745;
-            padding: 20px;
-            border-radius: 5px;
-            cursor: pointer;
         }
         .upload-btn {
             background-color: #28a745;
@@ -42,6 +37,13 @@
         }
         .upload-btn:hover {
             background-color: #218838;
+        }
+        label.upload-btn {
+            display: inline-block;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            display: none;
         }
         .projects-grid {
             display: grid;
@@ -61,37 +63,101 @@
         .actions button {
             cursor: pointer;
             margin: 5px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            font-size: 12px;
+        }
+        .rename-btn { background-color: #ffc107; color: white; }
+        .delete-btn { background-color: #dc3545; color: white; }
+        .update-btn { background-color: #17a2b8; color: white; }
+        .edit-btn { background-color: #007bff; color: white; }
+
+        /* Drag-and-Drop Styling */
+        .container.dragging {
+            border: 2px dashed #218838;
+            background-color: #eef7ee;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        .modal input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .modal button {
+            margin-top: 10px;
+            padding: 8px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to Checks Happy</h1>
-        <button class="upload-btn" onclick="document.getElementById('file-input').click();">Upload Script</button>
-        <input type="file" id="file-input" style="display: none;" onchange="handleFileUpload(event)">
+        <label class="upload-btn" for="file-input">Upload Script</label>
+        <input type="file" id="file-input" accept=".pdf,.docx,.txt" onchange="handleFileUpload(event)">
         <div class="projects-grid" id="projects-grid"></div>
     </div>
 
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal">
+        <h3>Edit Project</h3>
+        <input type="text" id="edit-project-name" placeholder="New Project Name">
+        <button onclick="saveProjectEdit()">Save</button>
+        <button onclick="closeModal()">Cancel</button>
+    </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", loadProjects);
+        document.addEventListener("DOMContentLoaded", () => {
+            loadProjects();
+            setupDragAndDrop();
+        });
+
+        function setupDragAndDrop() {
+            const container = document.querySelector(".container");
+            container.addEventListener("dragover", (event) => {
+                event.preventDefault();
+                container.classList.add("dragging");
+            });
+            container.addEventListener("dragleave", () => {
+                container.classList.remove("dragging");
+            });
+            container.addEventListener("drop", handleDrop);
+        }
 
         function handleFileUpload(event) {
             const file = event.target.files[0];
-            if (file) {
-                saveProject(file.name);
-            }
+            if (file) saveProject(file.name);
         }
 
         function handleDrop(event) {
             event.preventDefault();
             const file = event.dataTransfer.files[0];
-            if (file) {
-                saveProject(file.name);
-            }
+            if (file) saveProject(file.name);
         }
 
         function saveProject(fileName) {
+            if (!fileName.trim()) return alert("Invalid file name.");
             let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+            // Prevent duplicate uploads
+            if (projects.some(project => project.name === fileName)) {
+                return alert("This file is already uploaded.");
+            }
+
             projects.push({ name: fileName, date: new Date().toLocaleDateString() });
             localStorage.setItem("projects", JSON.stringify(projects));
             loadProjects();
@@ -101,25 +167,59 @@
             const projectsGrid = document.getElementById("projects-grid");
             projectsGrid.innerHTML = "";
             let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+            projects.sort((a, b) => new Date(b.date) - new Date(a.date));
+
             projects.forEach((project, index) => {
                 const projectCard = document.createElement("div");
                 projectCard.classList.add("project-card");
                 projectCard.innerHTML = `<strong>${project.name}</strong><br><small>${project.date}</small> 
                     <div class="actions">
-                        <button onclick="renameProject(${index}, prompt('New name:'))">Rename</button>
-                        <button onclick="deleteProject(${index})">Delete</button>
+                        <button class="rename-btn" onclick="renameProject(${index})">Rename</button>
+                        <button class="update-btn" onclick="updateScript(${index})">Update Script</button>
+                        <button class="edit-btn" onclick="openEditModal(${index})">Edit</button>
+                        <button class="delete-btn" onclick="deleteProject(${index})">Delete</button>
                     </div>`;
                 projectsGrid.appendChild(projectCard);
             });
         }
 
-        function renameProject(index, newName) {
+        function renameProject(index) {
             let projects = JSON.parse(localStorage.getItem("projects"));
+            let newName = prompt("New name:");
             if (newName) {
                 projects[index].name = newName;
                 localStorage.setItem("projects", JSON.stringify(projects));
                 loadProjects();
             }
+        }
+
+        function updateScript(index) {
+            document.getElementById("file-input").onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    let projects = JSON.parse(localStorage.getItem("projects"));
+                    projects[index].name = file.name;
+                    localStorage.setItem("projects", JSON.stringify(projects));
+                    loadProjects();
+                }
+            };
+            document.getElementById("file-input").click();
+        }
+
+        function openEditModal(index) {
+            document.getElementById("edit-modal").style.display = "block";
+            document.getElementById("edit-project-name").dataset.index = index;
+        }
+
+        function saveProjectEdit() {
+            let index = document.getElementById("edit-project-name").dataset.index;
+            renameProject(index);
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById("edit-modal").style.display = "none";
         }
 
         function deleteProject(index) {
