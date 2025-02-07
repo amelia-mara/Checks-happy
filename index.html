@@ -58,24 +58,22 @@
 <body>
     <div class="container">
         <h1>Welcome to Checks Happy</h1>
-        <button class="upload-btn" onclick="document.getElementById('file-input').click();">Upload File</button>
+        <button class="upload-btn" onclick="document.getElementById('file-input').click();">Upload Script</button>
         <input type="file" id="file-input" onchange="handleFileUpload(event)">
-        <div class="projects-grid">
-            <div class="project-card">Project 1</div>
-            <div class="project-card">Project 2</div>
-            <div class="project-card">Project 3</div>
-            <div class="project-card">Project 4</div>
-            <div class="project-card">Project 5</div>
-            <div class="project-card">Project 6</div>
-        </div>
+        <div class="projects-grid" id="projects-grid"></div>
     </div>
 
     <script>
         function handleFileUpload(event) {
             const file = event.target.files[0];
             if (file) {
-                alert(`File selected: ${file.name}`);
-                // Implement actual upload logic here (e.g., send to server)
+                const projectsGrid = document.getElementById('projects-grid');
+                
+                const projectCard = document.createElement('div');
+                projectCard.classList.add('project-card');
+                projectCard.innerHTML = `<strong>${file.name}</strong><br><small>${new Date().toLocaleDateString()}</small>`;
+                
+                projectsGrid.appendChild(projectCard);
             }
         }
     </script>
