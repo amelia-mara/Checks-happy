@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", closeMenuIfClickedOutside);
 });
 
-const GRID_SIZE = 220; // Grid spacing for widget snapping
+const GRID_SIZE = 220; // Grid cell size
 const COLUMN_COUNT = 3; // Number of columns in the grid
 
 /* Go back to main page */
@@ -46,6 +46,7 @@ function addWidget(widgetId) {
     widget.appendChild(deleteBtn);
     dashboard.appendChild(widget);
 
+    placeWidgetInGrid(widget);
     makeWidgetDraggable(widget);
     saveWidgets();
 }
@@ -56,7 +57,35 @@ function removeWidget(widgetId) {
     saveWidgets();
 }
 
-/* Make widgets draggable with true grid snapping */
+/* Place widget in the first available grid slot */
+function placeWidgetInGrid(widget) {
+    let occupiedPositions = getOccupiedPositions();
+    
+    for (let row = 0; row < 10; row++) { // Limit to 10 rows
+        for (let col = 0; col < COLUMN_COUNT; col++) {
+            let key = `${col}-${row}`;
+            if (!occupiedPositions[key]) {
+                widget.style.left = col * GRID_SIZE + "px";
+                widget.style.top = row * GRID_SIZE + "px";
+                saveWidgets();
+                return;
+            }
+        }
+    }
+}
+
+/* Get all occupied grid positions */
+function getOccupiedPositions() {
+    let occupied = {};
+    document.querySelectorAll(".widget").forEach(widget => {
+        let col = Math.round(parseInt(widget.style.left) / GRID_SIZE);
+        let row = Math.round(parseInt(widget.style.top) / GRID_SIZE);
+        occupied[`${col}-${row}`] = true;
+    });
+    return occupied;
+}
+
+/* Make widgets draggable with collision prevention */
 function makeWidgetDraggable(widget) {
     let offsetX, offsetY, startX, startY;
 
@@ -65,7 +94,7 @@ function makeWidgetDraggable(widget) {
 
     function startDrag(event) {
         event.preventDefault();
-
+        
         let touch = event.touches ? event.touches[0] : event;
         startX = touch.clientX;
         startY = touch.clientY;
@@ -83,16 +112,15 @@ function makeWidgetDraggable(widget) {
         let x = touch.clientX - offsetX;
         let y = touch.clientY - offsetY;
 
-        // Snap to grid
-        let snappedX = Math.round(x / GRID_SIZE) * GRID_SIZE;
-        let snappedY = Math.round(y / GRID_SIZE) * GRID_SIZE;
+        let col = Math.round(x / GRID_SIZE);
+        let row = Math.round(y / GRID_SIZE);
 
-        // Ensure it stays within grid limits
-        snappedX = Math.max(0, Math.min(snappedX, (COLUMN_COUNT - 1) * GRID_SIZE));
-        snappedY = Math.max(0, snappedY);
+        let occupiedPositions = getOccupiedPositions();
 
-        widget.style.left = snappedX + "px";
-        widget.style.top = snappedY + "px";
+        if (!occupiedPositions[`${col}-${row}`]) {
+            widget.style.left = col * GRID_SIZE + "px";
+            widget.style.top = row * GRID_SIZE + "px";
+        }
     }
 
     function stopDrag() {
@@ -104,7 +132,7 @@ function makeWidgetDraggable(widget) {
     }
 }
 
-/* Save & load widgets in grid positions */
+/* Save & load widgets */
 function saveWidgets() {
     let widgets = [];
     document.querySelectorAll(".widget").forEach(widget => {
