@@ -1,4 +1,4 @@
-/* Smooth Glassy Look */
+/* Smooth iPad-Style Look */
 body {
     font-family: 'Lexend', sans-serif;
     background: linear-gradient(135deg, #dfe9f3, #ffffff);
@@ -16,10 +16,11 @@ body {
     position: relative;
 }
 
-/* iPad-style Widgets */
+/* Grid Layout for Widgets */
 .dashboard-widgets {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 220px); /* 3 columns */
+    grid-auto-rows: 220px; /* Keep consistent row height */
     gap: 10px;
     justify-content: center;
     position: relative;
@@ -42,17 +43,6 @@ body {
     user-select: none;
     transition: all 0.3s ease;
     position: absolute;
-}
-
-/* Resizing Handles */
-.widget::after {
-    content: "↘";
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    font-size: 14px;
-    cursor: nwse-resize;
-    opacity: 0.5;
 }
 
 /* Widget Delete Button */
