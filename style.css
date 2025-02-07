@@ -18,6 +18,7 @@
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 10px;
+    z-index: 10;
 }
 
 .widget-menu button {
@@ -66,7 +67,12 @@
     color: white;
     border: none;
     padding: 5px;
-    font-size: 10px;
+    font-size: 12px;
     border-radius: 5px;
     cursor: pointer;
+    opacity: 0.8;
+}
+
+.widget .delete-btn:hover {
+    opacity: 1;
 }
