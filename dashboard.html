@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Dashboard - Checks Happy</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="dashboard-container">
-        <button class="back-btn" onclick="goBack()">← Back</button>
-        <h1 id="project-title">Project Dashboard</h1>
-        <p id="project-date"></p>
+        <!-- Main Content Area -->
+        <div class="dashboard-main">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>Customize your workspace by adding your most-used tools.</p>
 
-        <div class="dashboard-content">
-            <h2>Project Details</h2>
-            <p>This is where we will display details and features related to this project.</p>
+            <!-- Widget Area -->
+            <div id="dashboard-widgets" class="widget-grid"></div>
+        </div>
+
+        <!-- Permanent Right-Hand Sidebar -->
+        <div class="sidebar">
+            <h2>Services</h2>
+            <ul class="service-menu">
+                <li><a href="script-breakdown.html">📜 Script Breakdown</a></li>
+                <li><a href="character-breakdown.html">🎭 Character Breakdown & Design</a></li>
+                <li><a href="schedule.html">📅 Schedule</a></li>
+                <li><a href="budgeting.html">💰 Budgeting & Spending</a></li>
+                <li><a href="continuity.html">🎬 Continuity</a></li>
+            </ul>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
