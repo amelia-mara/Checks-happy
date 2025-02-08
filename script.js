@@ -96,8 +96,40 @@ function closeAllDropdowns() {
     document.querySelectorAll(".dropdown").forEach(drop => drop.classList.remove("active"));
 }
 
-// Function to load widgets (Dashboard Buttons)
 function loadWidgets() {
+    let dashboard = document.getElementById("dashboard-widgets");
+    dashboard.innerHTML = ""; // Clear existing widgets
+    let widgets = JSON.parse(localStorage.getItem("userWidgets")) || [];
+
+    widgets.forEach(widgetData => {
+        let widget = document.createElement("div");
+        widget.classList.add("widget");
+        widget.id = widgetData.id;
+        widget.innerHTML = `<span>${widgetData.name}</span>`;
+
+        // Check if it's the Character Breakdown widget and add click event
+        if (widgetData.id === "character-breakdown" || widgetData.name.includes("Character Breakdown")) {
+            widget.addEventListener("click", () => {
+                window.location.href = "character-breakdown.html";
+            });
+        }
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "❌";
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.onclick = () => removeWidget(widgetData.id);
+
+        widget.appendChild(deleteBtn);
+        dashboard.appendChild(widget);
+    });
+}
+
+    // Ensure event listeners are properly attached after widgets are loaded
+    attachWidgetClickEvents();
+}
+
+// Function to attach click events to widgets after they are added to the page
+function attachWidgetClickEvents() {
     document.querySelectorAll(".widget").forEach(widget => {
         if (widget.textContent.includes("Character Breakdown")) {
             widget.addEventListener("click", () => {
