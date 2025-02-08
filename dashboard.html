@@ -8,28 +8,36 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Main Content Area -->
+        <!-- Main Dashboard Content -->
         <div class="dashboard-main">
             <h1>Welcome to Your Dashboard</h1>
+            <h2 id="project-title">Project: </h2>
             <p>Customize your workspace by adding your most-used tools.</p>
-
-            <!-- Widget Area -->
-            <div id="dashboard-widgets" class="widget-grid"></div>
         </div>
 
-        <!-- Permanent Right-Hand Sidebar -->
-        <div class="sidebar">
-            <h2>Services</h2>
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <h3>Services</h3>
             <ul class="service-menu">
                 <li><a href="script-breakdown.html">📜 Script Breakdown</a></li>
-                <li><a href="character-breakdown.html">🎭 Character Breakdown & Design</a></li>
+                <li><a href="character-breakdown.html">🧑‍🎨 Character Breakdown & Design</a></li>
                 <li><a href="schedule.html">📅 Schedule</a></li>
                 <li><a href="budgeting.html">💰 Budgeting & Spending</a></li>
                 <li><a href="continuity.html">🎬 Continuity</a></li>
             </ul>
-        </div>
+        </aside>
     </div>
 
-    <script src="assets/js/script.js"></script>
+    <!-- JavaScript to Load Project Name from URL -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const projectName = params.get("project");
+
+            if (projectName) {
+                document.getElementById("project-title").textContent = `Project: ${decodeURIComponent(projectName)}`;
+            }
+        });
+    </script>
 </body>
 </html>
