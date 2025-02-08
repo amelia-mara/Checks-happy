@@ -1,32 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-    loadProjectDashboard();
     loadWidgets();
     document.addEventListener("click", closeMenuIfClickedOutside);
 });
 
-const GRID_SIZE = 220; // Grid size
+const GRID_SIZE = 220; // Size of each widget grid slot
 const COLUMN_COUNT = 3; // Number of columns in the grid
 
-/* Go back to main page */
-function goBack() {
-    window.location.href = "index.html";
-}
-
-/* Toggle widget menu */
 function toggleMenu(event) {
     let menu = document.getElementById("widget-menu");
-
     if (menu.style.display === "block") {
         closeMenu();
     } else {
         menu.style.display = "block";
         setTimeout(() => document.addEventListener("click", closeMenuIfClickedOutside), 10);
     }
-
     event.stopPropagation();
 }
 
-/* Close menu if clicking outside */
 function closeMenuIfClickedOutside(event) {
     let menu = document.getElementById("widget-menu");
     let button = document.querySelector(".menu-btn");
@@ -36,14 +26,12 @@ function closeMenuIfClickedOutside(event) {
     }
 }
 
-/* Close the menu */
 function closeMenu() {
     let menu = document.getElementById("widget-menu");
     menu.style.display = "none";
     document.removeEventListener("click", closeMenuIfClickedOutside);
 }
 
-/* Add widget */
 function addWidget(widgetId) {
     let dashboard = document.getElementById("dashboard-widgets");
     if (document.getElementById(widgetId)) return;
@@ -66,17 +54,15 @@ function addWidget(widgetId) {
     saveWidgets();
 }
 
-/* Remove widget */
 function removeWidget(widgetId) {
     document.getElementById(widgetId)?.remove();
     saveWidgets();
 }
 
-/* Place widget in first available grid slot */
 function placeWidgetInGrid(widget) {
     let occupiedPositions = getOccupiedPositions();
     
-    for (let row = 0; row < 10; row++) { // Max 10 rows
+    for (let row = 0; row < 10; row++) { 
         for (let col = 0; col < COLUMN_COUNT; col++) {
             let key = `${col}-${row}`;
             if (!occupiedPositions[key]) {
@@ -89,7 +75,6 @@ function placeWidgetInGrid(widget) {
     }
 }
 
-/* Get occupied grid positions */
 function getOccupiedPositions() {
     let occupied = {};
     document.querySelectorAll(".widget").forEach(widget => {
@@ -100,7 +85,52 @@ function getOccupiedPositions() {
     return occupied;
 }
 
-/* Save & load widgets */
+function makeWidgetDraggable(widget) {
+    let offsetX, offsetY, startX, startY;
+
+    widget.addEventListener("touchstart", startDrag, false);
+    widget.addEventListener("mousedown", startDrag, false);
+
+    function startDrag(event) {
+        event.preventDefault();
+        
+        let touch = event.touches ? event.touches[0] : event;
+        startX = touch.clientX;
+        startY = touch.clientY;
+        offsetX = touch.clientX - widget.getBoundingClientRect().left;
+        offsetY = touch.clientY - widget.getBoundingClientRect().top;
+
+        document.addEventListener("mousemove", moveWidget, false);
+        document.addEventListener("mouseup", stopDrag, false);
+        document.addEventListener("touchmove", moveWidget, false);
+        document.addEventListener("touchend", stopDrag, false);
+    }
+
+    function moveWidget(event) {
+        let touch = event.touches ? event.touches[0] : event;
+        let x = touch.clientX - offsetX;
+        let y = touch.clientY - offsetY;
+
+        let col = Math.round(x / GRID_SIZE);
+        let row = Math.round(y / GRID_SIZE);
+
+        let occupiedPositions = getOccupiedPositions();
+
+        if (!occupiedPositions[`${col}-${row}`]) {
+            widget.style.left = col * GRID_SIZE + "px";
+            widget.style.top = row * GRID_SIZE + "px";
+        }
+    }
+
+    function stopDrag() {
+        document.removeEventListener("mousemove", moveWidget, false);
+        document.removeEventListener("mouseup", stopDrag, false);
+        document.removeEventListener("touchmove", moveWidget, false);
+        document.removeEventListener("touchend", stopDrag, false);
+        saveWidgets();
+    }
+}
+
 function saveWidgets() {
     let widgets = [];
     document.querySelectorAll(".widget").forEach(widget => {
