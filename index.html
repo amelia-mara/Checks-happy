@@ -153,10 +153,7 @@
 
         function handleFileUpload(event) {
             const file = event.target.files[0];
-            if (file) {
-                saveProject(file.name);
-                event.target.value = ""; // Reset file input to allow re-upload
-            }
+            if (file) saveProject(file.name);
         }
 
         function saveProject(fileName) {
@@ -182,7 +179,7 @@
             projects.forEach((project, index) => {
                 const projectCard = document.createElement("div");
                 projectCard.classList.add("project-card");
-                projectCard.onclick = () => openDashboard(project.name); // Navigate to dashboard
+                projectCard.onclick = () => openDashboard(project.name); // Make it clickable
 
                 projectCard.innerHTML = `
                     <div class="project-header">
@@ -224,7 +221,6 @@
                     projects[index].name = file.name;
                     localStorage.setItem("projects", JSON.stringify(projects));
                     loadProjects();
-                    event.target.value = ""; // Reset file input
                 }
             };
             document.getElementById("file-input").click();
