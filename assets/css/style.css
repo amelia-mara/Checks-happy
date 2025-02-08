@@ -1,6 +1,80 @@
-/* This is the main styles file */
+/* Global Styles */
 body {
     font-family: 'Lexend', sans-serif;
     background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Main Dashboard Area */
+.dashboard-main {
+    flex-grow: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+/* Sidebar Menu (Fixed Right) */
+.sidebar {
+    width: 250px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+/* Sidebar Menu Styling */
+.service-menu {
+    list-style: none;
+    padding: 0;
+}
+.service-menu li {
+    margin: 10px 0;
+}
+.service-menu a {
+    display: block;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
     text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+.service-menu a:hover {
+    background: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .sidebar {
+        width: 100%;
+        margin-left: 0;
+        position: relative;
+        text-align: center;
+    }
 }
