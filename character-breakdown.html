@@ -15,13 +15,13 @@
         <div class="character-section">
             <h2>Character Profiles</h2>
             <form id="character-form">
-                <input type="text" id="char-name" placeholder="Character Name">
+                <input type="text" id="character-name" placeholder="Character Name">
                 <input type="text" id="actor-name" placeholder="Actor Name">
-                <input type="number" id="char-age" placeholder="Age">
-                <input type="text" id="char-skin" placeholder="Skin Tone">
-                <input type="text" id="char-hair" placeholder="Hair Type">
-                <textarea id="char-notes" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
-                <input type="file" id="char-image" accept="image/*">
+                <input type="number" id="character-age" placeholder="Age">
+                <input type="text" id="skin-tone" placeholder="Skin Tone">
+                <input type="text" id="hair-type" placeholder="Hair Type">
+                <textarea id="special-requirements" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
+                <input type="file" id="character-image" accept="image/*">
                 <button type="button" onclick="addCharacter()">Add Character</button>
             </form>
             <div id="character-list" class="character-list"></div>
@@ -49,18 +49,11 @@
             <input type="color" id="colorPicker" value="#FF5733">
             <button id="addColorBtn">Add Color</button>
 
-            <!-- Upload Image for Color Extraction -->
-            <input type="file" id="colorImageInput" accept="image/*">
-            <img id="colorPreview" style="max-width: 100px; display: none;">
-            <button id="extractColorsBtn">Extract Colors</button>
-
             <!-- Selected Colors Display -->
-         <ul id="colorSwatches" class="color-swatches"></ul>
+            <div id="colorSwatches" class="color-swatches"></div>
         </div>
-    </div> <!-- Closing character-breakdown-container -->
 
-    <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.min.js"></script>
+    </div> <!-- Closing character-breakdown-container -->
 
     <!-- JavaScript File (Placed at the end for proper execution) -->
     <script src="assets/js/character-breakdown.js"></script>
