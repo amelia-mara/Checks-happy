@@ -8,10 +8,29 @@
 </head>
 <body>
     <div class="container">
-        <h1>Character Breakdown</h1>
-        <p>This page will contain character details and design elements.</p>
-        <!-- Ensure the link correctly points back to the dashboard -->
+        <h1>Character Breakdown & Design</h1>
         <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+
+        <!-- Character Input Form -->
+        <div class="character-form">
+            <h2>Add a New Character</h2>
+            <input type="text" id="character-name" placeholder="Character Name">
+            <input type="text" id="actor-name" placeholder="Actor Name">
+            <input type="number" id="character-age" placeholder="Age">
+            <input type="text" id="skin-tone" placeholder="Skin Tone">
+            <input type="text" id="hair-type" placeholder="Hair Type">
+            <textarea id="special-requirements" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
+            <input type="file" id="character-image" accept="image/*">
+            <button onclick="addCharacter()">Add Character</button>
+        </div>
+
+        <!-- Character List Display -->
+        <div class="character-list">
+            <h2>Character Profiles</h2>
+            <div id="character-profiles"></div>
+        </div>
     </div>
+
+    <script src="assets/js/character-breakdown.js"></script>
 </body>
 </html>
