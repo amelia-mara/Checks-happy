@@ -40,18 +40,29 @@
             <h2>Lookbooks</h2>
             <div class="lookbook-grid" id="lookbook-grid"></div>
         </div>
-    <!-- Film Color Palette Section -->
-<div class="character-section">
-    <h2>🎨 Film Color Palette</h2>
 
-    <!-- Color Picker -->
-    <input type="color" id="colorPicker" value="#FF5733">
-    <button id="addColorBtn">Add Color</button>
+        <!-- Film Color Palette Section -->
+        <div class="character-section">
+            <h2>🎨 Film Color Palette</h2>
 
-    <!-- Selected Colors Display -->
-    <div id="colorSwatches" class="color-swatches"></div>
-</div>
+            <!-- Color Picker -->
+            <input type="color" id="colorPicker" value="#FF5733">
+            <button id="addColorBtn">Add Color</button>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.min.js"></script>
+            <!-- Upload Image for Color Extraction -->
+            <input type="file" id="colorImageInput" accept="image/*">
+            <img id="colorPreview" style="max-width: 100px; display: none;">
+            <button id="extractColorsBtn">Extract Colors</button>
+
+            <!-- Selected Colors Display -->
+         <ul id="colorSwatches" class="color-swatches"></ul>
+        </div>
+    </div> <!-- Closing character-breakdown-container -->
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.min.js"></script>
+
+    <!-- JavaScript File (Placed at the end for proper execution) -->
+    <script src="assets/js/character-breakdown.js"></script>
 </body>
 </html>
