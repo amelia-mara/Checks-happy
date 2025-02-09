@@ -132,20 +132,20 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("filmPalette", JSON.stringify(selectedColors));
     }
 
-    // Function to open the color picker when "Add Color" is clicked
-    addColorBtn.addEventListener("click", function() {
-        colorPicker.click(); // Opens the color picker
-    });
+    // When "Add Color" is clicked, open the color picker
+addColorBtn.addEventListener("click", function() {
+    colorPicker.click();
+});
 
-    // When the user picks a color, add it to the swatches
-    colorPicker.addEventListener("input", function() {
-        const selectedColor = colorPicker.value;
+// When the user picks a color, add it to the swatches
+colorPicker.addEventListener("change", function() {
+    const selectedColor = colorPicker.value;
 
-        if (!selectedColors.includes(selectedColor)) {
-            selectedColors.push(selectedColor);
-            updateSwatches();
-        }
-    });
+    if (!selectedColors.includes(selectedColor)) {
+        selectedColors.push(selectedColor);
+        updateSwatches();
+    }
+});
 
     // Drag & Drop Functions
     let draggedItem = null;
