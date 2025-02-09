@@ -96,3 +96,48 @@ function deleteCharacter(index) {
     localStorage.setItem("characters", JSON.stringify(characters));
     loadCharacters();
 }
+// Wait for the page to load before running the script
+document.addEventListener("DOMContentLoaded", function() {
+    const colorPicker = document.getElementById("colorPicker");
+    const addColorBtn = document.getElementById("addColorBtn");
+    const colorSwatches = document.getElementById("colorSwatches");
+
+    let selectedColors = JSON.parse(localStorage.getItem("filmPalette")) || [];
+
+    // Function to update the swatch display
+    function updateSwatches() {
+        colorSwatches.innerHTML = ""; // Clear previous swatches
+
+        selectedColors.forEach(color => {
+            const swatch = document.createElement("div");
+            swatch.classList.add("color-swatch");
+            swatch.style.backgroundColor = color;
+            swatch.setAttribute("data-color", color);
+            swatch.title = `Click to remove ${color}`;
+
+            // Remove color on click
+            swatch.addEventListener("click", function() {
+                selectedColors = selectedColors.filter(c => c !== color);
+                updateSwatches();
+            });
+
+            colorSwatches.appendChild(swatch);
+        });
+
+        // Save updated palette to local storage
+        localStorage.setItem("filmPalette", JSON.stringify(selectedColors));
+    }
+
+    // Function to add a new color
+    addColorBtn.addEventListener("click", function() {
+        const selectedColor = colorPicker.value;
+
+        if (!selectedColors.includes(selectedColor)) {
+            selectedColors.push(selectedColor);
+            updateSwatches();
+        }
+    });
+
+    // Load saved colors on page load
+    updateSwatches();
+});
