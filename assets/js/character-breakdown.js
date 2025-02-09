@@ -132,8 +132,13 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("filmPalette", JSON.stringify(selectedColors));
     }
 
-    // Function to add a new color
+    // Function to open the color picker when "Add Color" is clicked
     addColorBtn.addEventListener("click", function() {
+        colorPicker.click(); // Opens the color picker
+    });
+
+    // When the user picks a color, add it to the swatches
+    colorPicker.addEventListener("input", function() {
         const selectedColor = colorPicker.value;
 
         if (!selectedColors.includes(selectedColor)) {
