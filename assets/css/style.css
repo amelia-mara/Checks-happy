@@ -8,125 +8,82 @@ body {
     justify-content: center;
 }
 
-/* Dashboard Layout */
-.dashboard-container {
-    display: flex;
-    height: 100vh;
-    width: 90%;
-    max-width: 1200px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* Main Dashboard Area */
-.dashboard-main {
-    flex-grow: 1;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-}
-
-/* Sidebar Menu (Fixed Right) */
-.sidebar {
-    width: 250px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 20px;
-    position: sticky;
-    top: 20px;
-    height: fit-content;
-}
-
-/* Sidebar Menu Styling */
-.service-menu {
-    list-style: none;
-    padding: 0;
-}
-.service-menu li {
-    margin: 10px 0;
-}
-.service-menu a {
-    display: block;
-    padding: 12px;
-    background: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background 0.3s ease;
-}
-.service-menu a:hover {
-    background: #0056b3;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .sidebar {
-        width: 100%;
-        margin-left: 0;
-        position: relative;
-        text-align: center;
-    }.character-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Added gap for better spacing */
-}
-
-.character-form button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.character-form button:hover {
-    background: #218838;
-}
-
-.character-list {
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-}
-
-.character-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* Character Breakdown Layout */
+.character-breakdown-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
 }
 
-.character-card img {
-    max-width: 100px;
-    border-radius: 5px;
+/* Compact Sections */
+.character-section {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Responsive Two-Column Layout */
+.character-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.character-flex-container .character-section {
+    flex: 1 1 48%; /* Two-column layout */
+}
+
+/* Image Upload Styles */
+.moodboard-upload {
+    width: 100%;
+    max-width: 500px;
+    height: 200px;
+    border: 2px dashed #007bff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Uploaded Images Grid */
+.moodboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
     margin-top: 10px;
+}
+
+.moodboard-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Lookbooks Layout */
+.lookbook-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.lookbook-card {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
 }
