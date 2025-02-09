@@ -105,17 +105,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let selectedColors = JSON.parse(localStorage.getItem("filmPalette")) || [];
 
-    // Function to update the swatch display with drag-and-drop functionality
+    // Function to update the swatch display
     function updateSwatches() {
         colorSwatches.innerHTML = ""; // Clear previous swatches
 
         selectedColors.forEach((color, index) => {
-            const swatch = document.createElement("li"); // Use <li> instead of <div>
+            const swatch = document.createElement("div");
             swatch.classList.add("color-swatch");
             swatch.style.backgroundColor = color;
-            swatch.setAttribute("data-index", index);
-            swatch.setAttribute("draggable", true);
-            swatch.title = `Click to remove ${color}`;
+
+            const label = document.createElement("div");
+            label.classList.add("color-label");
+            label.textContent = color.toUpperCase(); // Show hex code
 
             // Remove color on click
             swatch.addEventListener("click", function() {
@@ -123,18 +124,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 updateSwatches();
             });
 
-            // Drag Events for Sorting
-            swatch.addEventListener("dragstart", handleDragStart);
-            swatch.addEventListener("dragover", handleDragOver);
-            swatch.addEventListener("drop", handleDrop);
-            swatch.addEventListener("dragend", handleDragEnd);
-
+            swatch.appendChild(label);
             colorSwatches.appendChild(swatch);
         });
 
         // Save updated palette to local storage
         localStorage.setItem("filmPalette", JSON.stringify(selectedColors));
     }
+
+    // Function to add a new color
+    addColorBtn.addEventListener("click", function() {
+        const selectedColor = colorPicker.value;
+
+        if (!selectedColors.includes(selectedColor)) {
+            selectedColors.push(selectedColor);
+            updateSwatches();
+        }
+    });
 
     // Drag & Drop Functions
     let draggedItem = null;
@@ -168,16 +174,25 @@ document.addEventListener("DOMContentLoaded", function() {
         this.style.opacity = "1"; // Reset opacity after dragging
     }
 
-    // Function to add a new color
-    addColorBtn.addEventListener("click", function() {
-        const selectedColor = colorPicker.value;
+    // Apply drag-and-drop event listeners to color swatches
+    function applyDragEvents() {
+        document.querySelectorAll(".color-swatch").forEach((swatch, index) => {
+            swatch.setAttribute("draggable", true);
+            swatch.setAttribute("data-index", index);
 
-        if (!selectedColors.includes(selectedColor)) {
-            selectedColors.push(selectedColor);
-            updateSwatches();
-        }
-    });
+            swatch.addEventListener("dragstart", handleDragStart);
+            swatch.addEventListener("dragover", handleDragOver);
+            swatch.addEventListener("drop", handleDrop);
+            swatch.addEventListener("dragend", handleDragEnd);
+        });
+    }
 
-    // Load saved colors on page load
-    updateSwatches();
+    // Update swatches and apply drag events
+    function refreshSwatches() {
+        updateSwatches();
+        applyDragEvents();
+    }
+
+    // Call refreshSwatches on page load
+    refreshSwatches();
 });
