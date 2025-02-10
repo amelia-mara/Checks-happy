@@ -1,3 +1,4 @@
+alert("✅ Film Color Palette JavaScript Loaded!");
 document.addEventListener("DOMContentLoaded", function () {
     // Select necessary elements
     const colorWheel = document.getElementById("colorWheel");
