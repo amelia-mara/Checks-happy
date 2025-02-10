@@ -102,3 +102,91 @@ body {
 .lookbook-card:hover {
     transform: translateY(-5px);
 }
+/* 🎨 Film Color Palette Styles */
+.film-color-palette {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.palette-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+/* ✅ Large Color Wheel */
+.color-wheel-container {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.color-wheel {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: none;
+}
+
+/* ✅ Dynamic Color Swatches */
+.color-palette {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.core-color {
+    width: 80px;
+    height: 80px;
+    background: #D3D3D3;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.swatches-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    gap: 10px;
+}
+
+.swatch {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.swatch:hover {
+    transform: scale(1.1);
+}
+
+/* ✅ Reset Button */
+#resetPalette {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+#resetPalette:hover {
+    background: #e63939;
+}
