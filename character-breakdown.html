@@ -41,23 +41,25 @@
             <div class="lookbook-grid" id="lookbook-grid"></div>
         </div>
 
-        <!-- Film Color Palette Section -->
+        <!-- 🎨 Film Color Palette Section -->
         <div class="character-section">
             <h2>🎨 Film Color Palette</h2>
 
-            <!-- Color Picker Pop-Up -->
-<div id="colorPickerContainer" class="color-picker-popup">
-    <input type="color" id="colorPicker" value="#FF5733">
-    <button id="confirmColorBtn">Confirm Color</button>
-</div>
+            <!-- ✅ Interactive Color Picker -->
+            <input type="color" id="colorWheel" class="color-wheel">
 
-            <!-- Selected Colors Display -->
+            <!-- ✅ Grid Display for Selected Colors -->
             <div id="colorSwatches" class="color-swatches"></div>
+
+            <!-- ✅ Buttons for Adding and Resetting Colors -->
+            <button id="addColor">Add to Palette</button>
+            <button id="resetPalette">Reset Palette</button>
         </div>
 
     </div> <!-- Closing character-breakdown-container -->
 
-    <!-- JavaScript File (Placed at the end for proper execution) -->
+    <!-- ✅ JavaScript Files -->
     <script src="assets/js/character-breakdown.js"></script>
+    <script src="assets/js/filmColorPalette.js"></script> <!-- ✅ Film Color Palette -->
 </body>
 </html>
