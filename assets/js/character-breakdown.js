@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateSwatches() {
         colourSwatches.innerHTML = ""; // Clear previous swatches
 
-        selectedColours.forEach((colour, index) => {
+        selectedColours.forEach((colour) => {
             const swatch = document.createElement("div");
             swatch.classList.add("colour-swatch");
             swatch.style.backgroundColor = colour;
@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Remove colour on click
             swatch.addEventListener("click", function() {
                 selectedColours = selectedColours.filter(c => c !== colour);
+                localStorage.setItem("filmPalette", JSON.stringify(selectedColours)); // Save updated colours
                 updateSwatches();
             });
 
@@ -37,21 +38,21 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("filmPalette", JSON.stringify(selectedColours));
     }
 
-    // When "Add Colour" is clicked, open the colour picker pop-up
+    // 🎨 Open Colour Picker Pop-Up when "Add Colour" is clicked
     addColourBtn.addEventListener("click", function() {
-        colourPickerContainer.style.display = "block"; // Show the pop-up
+        colourPickerContainer.style.display = "block"; // Show pop-up
     });
 
-    // When the user confirms a colour, add it to the swatches
+    // ✅ When "Confirm Colour" is clicked, add the selected colour to the palette
     confirmColourBtn.addEventListener("click", function() {
-        const selectedColour = colourPicker.value;
+        const selectedColour = colourPicker.value; // Get the chosen colour
 
         if (!selectedColours.includes(selectedColour)) {
             selectedColours.push(selectedColour);
-            updateSwatches();
+            updateSwatches(); // Update swatches immediately after confirming
         }
 
-        colourPickerContainer.style.display = "none"; // Hide the pop-up after confirming
+        colourPickerContainer.style.display = "none"; // Hide pop-up
     });
 
     // Load saved colours when the page loads
