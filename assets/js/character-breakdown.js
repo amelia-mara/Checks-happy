@@ -1,203 +1,59 @@
-document.addEventListener("DOMContentLoaded", loadCharacters);
-
-// Function to add a new character
-function addCharacter() {
-    let name = document.getElementById("character-name").value.trim();
-    let actor = document.getElementById("actor-name").value.trim();
-    let age = document.getElementById("character-age").value.trim();
-    let skinTone = document.getElementById("skin-tone").value.trim();
-    let hairType = document.getElementById("hair-type").value.trim();
-    let specialReq = document.getElementById("special-requirements").value.trim();
-    let imageFile = document.getElementById("character-image").files[0];
-
-    if (!name || !actor) {
-        alert("Character Name and Actor Name are required.");
-        return;
-    }
-
-    let reader = new FileReader();
-    reader.onload = function (e) {
-        let imageData = e.target.result;
-
-        let characters = JSON.parse(localStorage.getItem("characters")) || [];
-        characters.push({
-            name,
-            actor,
-            age,
-            skinTone,
-            hairType,
-            specialReq,
-            image: imageData
-        });
-
-        localStorage.setItem("characters", JSON.stringify(characters));
-        loadCharacters();
-    };
-
-    if (imageFile) {
-        reader.readAsDataURL(imageFile);
-    } else {
-        let characters = JSON.parse(localStorage.getItem("characters")) || [];
-        characters.push({
-            name,
-            actor,
-            age,
-            skinTone,
-            hairType,
-            specialReq,
-            image: null
-        });
-
-        localStorage.setItem("characters", JSON.stringify(characters));
-        loadCharacters();
-    }
-
-    // Clear form fields after adding
-    document.getElementById("character-name").value = "";
-    document.getElementById("actor-name").value = "";
-    document.getElementById("character-age").value = "";
-    document.getElementById("skin-tone").value = "";
-    document.getElementById("hair-type").value = "";
-    document.getElementById("special-requirements").value = "";
-    document.getElementById("character-image").value = "";
-}
-
-// Function to load characters from localStorage
-function loadCharacters() {
-    let characterContainer = document.getElementById("character-profiles");
-    characterContainer.innerHTML = "";
-
-    let characters = JSON.parse(localStorage.getItem("characters")) || [];
-
-    characters.forEach((character, index) => {
-        let characterCard = document.createElement("div");
-        characterCard.classList.add("character-card");
-
-        characterCard.innerHTML = `
-            <div class="character-info">
-                <h3>${character.name} (${character.actor})</h3>
-                <p><strong>Age:</strong> ${character.age}</p>
-                <p><strong>Skin Tone:</strong> ${character.skinTone}</p>
-                <p><strong>Hair Type:</strong> ${character.hairType}</p>
-                <p><strong>Special Requirements:</strong> ${character.specialReq}</p>
-                ${character.image ? `<img src="${character.image}" alt="${character.name}">` : ""}
-                <button onclick="deleteCharacter(${index})">Delete</button>
-            </div>
-        `;
-
-        characterContainer.appendChild(characterCard);
-    });
-}
-
-// Function to delete a character
-function deleteCharacter(index) {
-    let characters = JSON.parse(localStorage.getItem("characters")) || [];
-    characters.splice(index, 1);
-    localStorage.setItem("characters", JSON.stringify(characters));
-    loadCharacters();
-}
-
-// Film Color Palette Functionality
 document.addEventListener("DOMContentLoaded", function() {
-    const colorPicker = document.getElementById("colorPicker");
-    const addColorBtn = document.getElementById("addColorBtn");
-    const colorSwatches = document.getElementById("colorSwatches");
+    loadCharacters(); // Load existing characters on page load
 
-    let selectedColors = JSON.parse(localStorage.getItem("filmPalette")) || [];
+    // 🎨 Film Colour Palette Functionality
+    const colourPickerContainer = document.getElementById("colourPickerContainer");
+    const colourPicker = document.getElementById("colourPicker");
+    const addColourBtn = document.getElementById("addColourBtn");
+    const confirmColourBtn = document.getElementById("confirmColourBtn");
+    const colourSwatches = document.getElementById("colourSwatches");
+
+    let selectedColours = JSON.parse(localStorage.getItem("filmPalette")) || [];
 
     // Function to update the swatch display
     function updateSwatches() {
-        colorSwatches.innerHTML = ""; // Clear previous swatches
+        colourSwatches.innerHTML = ""; // Clear previous swatches
 
-        selectedColors.forEach((color, index) => {
+        selectedColours.forEach((colour, index) => {
             const swatch = document.createElement("div");
-            swatch.classList.add("color-swatch");
-            swatch.style.backgroundColor = color;
+            swatch.classList.add("colour-swatch");
+            swatch.style.backgroundColor = colour;
 
             const label = document.createElement("div");
-            label.classList.add("color-label");
-            label.textContent = color.toUpperCase(); // Show hex code
+            label.classList.add("colour-label");
+            label.textContent = colour.toUpperCase(); // Show hex code
 
-            // Remove color on click
+            // Remove colour on click
             swatch.addEventListener("click", function() {
-                selectedColors = selectedColors.filter(c => c !== color);
+                selectedColours = selectedColours.filter(c => c !== colour);
                 updateSwatches();
             });
 
             swatch.appendChild(label);
-            colorSwatches.appendChild(swatch);
+            colourSwatches.appendChild(swatch);
         });
 
         // Save updated palette to local storage
-        localStorage.setItem("filmPalette", JSON.stringify(selectedColors));
+        localStorage.setItem("filmPalette", JSON.stringify(selectedColours));
     }
 
-    // When "Add Color" is clicked, open the color picker
-addColorBtn.addEventListener("click", function() {
-    colorPicker.click();
-});
+    // When "Add Colour" is clicked, open the colour picker pop-up
+    addColourBtn.addEventListener("click", function() {
+        colourPickerContainer.style.display = "block"; // Show the pop-up
+    });
 
-// When the user picks a color, add it to the swatches
-colorPicker.addEventListener("change", function() {
-    const selectedColor = colorPicker.value;
+    // When the user confirms a colour, add it to the swatches
+    confirmColourBtn.addEventListener("click", function() {
+        const selectedColour = colourPicker.value;
 
-    if (!selectedColors.includes(selectedColor)) {
-        selectedColors.push(selectedColor);
-        updateSwatches();
-    }
-});
-
-    // Drag & Drop Functions
-    let draggedItem = null;
-
-    function handleDragStart(e) {
-        draggedItem = this;
-        setTimeout(() => this.style.opacity = "0.5", 0);
-    }
-
-    function handleDragOver(e) {
-        e.preventDefault(); // Required to allow dropping
-    }
-
-    function handleDrop(e) {
-        e.preventDefault();
-        if (this !== draggedItem) {
-            let draggedIndex = parseInt(draggedItem.getAttribute("data-index"));
-            let targetIndex = parseInt(this.getAttribute("data-index"));
-
-            // Swap colors in the array
-            let temp = selectedColors[draggedIndex];
-            selectedColors[draggedIndex] = selectedColors[targetIndex];
-            selectedColors[targetIndex] = temp;
-
-            // Update swatches after reordering
+        if (!selectedColours.includes(selectedColour)) {
+            selectedColours.push(selectedColour);
             updateSwatches();
         }
-    }
 
-    function handleDragEnd() {
-        this.style.opacity = "1"; // Reset opacity after dragging
-    }
+        colourPickerContainer.style.display = "none"; // Hide the pop-up after confirming
+    });
 
-    // Apply drag-and-drop event listeners to color swatches
-    function applyDragEvents() {
-        document.querySelectorAll(".color-swatch").forEach((swatch, index) => {
-            swatch.setAttribute("draggable", true);
-            swatch.setAttribute("data-index", index);
-
-            swatch.addEventListener("dragstart", handleDragStart);
-            swatch.addEventListener("dragover", handleDragOver);
-            swatch.addEventListener("drop", handleDrop);
-            swatch.addEventListener("dragend", handleDragEnd);
-        });
-    }
-
-    // Update swatches and apply drag events
-    function refreshSwatches() {
-        updateSwatches();
-        applyDragEvents();
-    }
-
-    // Call refreshSwatches on page load
-    refreshSwatches();
+    // Load saved colours when the page loads
+    updateSwatches();
 });
