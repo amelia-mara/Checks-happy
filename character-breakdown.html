@@ -11,7 +11,7 @@
         <h1>Character Breakdown & Design</h1>
         <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
 
-        <!-- ✅ Wrap Character Profiles & Film Color Palette in a Row Container -->
+        <!-- ✅ Row Layout for Character Profiles & Film Color Palette -->
         <div class="character-profiles-container">
             <!-- ✅ Character Profiles (Left) -->
             <div class="character-section">
@@ -30,44 +30,47 @@
             </div>
 
             <!-- 🎨 ✅ Film Color Palette (Right) -->
-<div class="character-section film-color-palette">
-    <h2>🎨 Film Color Palette</h2>
-    <div class="palette-container">
-        <!-- ✅ Color Wheel -->
-        <div class="color-wheel-container">
-            <input type="color" id="colorWheel" class="color-wheel">
-        </div>
+            <div class="character-section film-color-palette">
+                <h2>🎨 Film Color Palette</h2>
+                <div class="palette-container">
+                    <!-- ✅ Color Wheel -->
+                    <div class="color-wheel-container">
+                        <input type="color" id="colorWheel" class="color-wheel">
+                    </div>
 
-        <!-- ✅ Keep Swatches Grid, Remove Core Color -->
-        <div class="color-palette">
-            <div id="colorSwatches" class="swatches-grid"></div> <!-- ✅ Swatches are still here -->
-            <button id="resetPalette">Reset Palette</button>
-        </div>
-    </div>
-</div>
+                    <!-- ✅ Swatches Grid -->
+                    <div class="color-palette">
+                        <div id="colorSwatches" class="swatches-grid"></div>
+                        <button id="resetPalette">Reset Palette</button>
+                    </div>
+                </div>
+            </div>
         </div> <!-- ✅ Closes character-profiles-container -->
 
-        <!-- ✅ Moodboards Section -->
-        <div class="character-section">
-            <h2>Moodboards</h2>
-            <div class="moodboard-upload" onclick="document.getElementById('moodboard-input').click()">Drag & Drop Images Here</div>
-            <input type="file" id="moodboard-input" accept="image/*" multiple style="display: none;">
-            <div class="moodboard-grid" id="moodboard-grid"></div>
-        </div>
+        <!-- ✅ New Row Layout for Moodboards, Notes & Lookbooks -->
+        <div class="character-extras-container">
+            <!-- ✅ Moodboards Section -->
+            <div class="character-section">
+                <h2>Moodboards</h2>
+                <div class="moodboard-upload" onclick="document.getElementById('moodboard-input').click()">Drag & Drop Images Here</div>
+                <input type="file" id="moodboard-input" accept="image/*" multiple style="display: none;">
+                <div class="moodboard-grid" id="moodboard-grid"></div>
+            </div>
 
-        <!-- ✅ Notes Section -->
-        <div class="character-section">
-            <h2>📝 Character Notes</h2>
-            <textarea id="characterNotes" placeholder="Write your notes here..." rows="5"></textarea>
-            <button id="saveNotes">Save Notes</button>
-            <p id="notesMessage" style="color: green; display: none;">✅ Notes saved!</p>
-        </div>
+            <!-- ✅ Notes Section -->
+            <div class="character-section">
+                <h2>📝 Character Notes</h2>
+                <textarea id="characterNotes" placeholder="Write your notes here..." rows="5"></textarea>
+                <button id="saveNotes">Save Notes</button>
+                <p id="notesMessage" style="color: green; display: none;">✅ Notes saved!</p>
+            </div>
 
-        <!-- ✅ Lookbooks Section -->
-        <div class="character-section">
-            <h2>Lookbooks</h2>
-            <div class="lookbook-grid" id="lookbook-grid"></div>
-        </div>
+            <!-- ✅ Lookbooks Section -->
+            <div class="character-section">
+                <h2>Lookbooks</h2>
+                <div class="lookbook-grid" id="lookbook-grid"></div>
+            </div>
+        </div> <!-- ✅ Closes character-extras-container -->
 
     </div> <!-- ✅ Closes character-breakdown-container -->
 
