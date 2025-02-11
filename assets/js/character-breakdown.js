@@ -1,56 +1,70 @@
 document.addEventListener("DOMContentLoaded", function () {
     const characterForm = document.getElementById("character-form");
     const characterList = document.getElementById("character-list");
-    const addCharacterBtn = document.getElementById("addCharacter");
+    const addCharacterButton = document.getElementById("addCharacter");
 
-    addCharacterBtn.addEventListener("click", function () {
-        // ✅ Capture form data
-        const name = document.getElementById("character-name").value;
-        const actor = document.getElementById("actor-name").value;
-        const age = document.getElementById("character-age").value;
-        const skinTone = document.getElementById("skin-tone").value;
-        const hairType = document.getElementById("hair-type").value;
-        const specialRequirements = document.getElementById("special-requirements").value;
-        const imageInput = document.getElementById("character-image");
+    // Default placeholder image (Update path if needed)
+    const defaultImage = "assets/img/placeholder.jpg";
 
-        // ✅ Validate name and actor fields
-        if (!name || !actor) {
-            alert("Please enter a character name and actor name!");
+    // Function to add a character
+    function addCharacter() {
+        const name = document.getElementById("character-name").value.trim();
+        const actor = document.getElementById("actor-name").value.trim();
+        const age = document.getElementById("character-age").value.trim();
+        const skinTone = document.getElementById("skin-tone").value.trim();
+        const hairType = document.getElementById("hair-type").value.trim();
+        const specialReq = document.getElementById("special-requirements").value.trim();
+        const imageInput = document.getElementById("character-image").files[0];
+
+        if (!name || !actor || !age) {
+            alert("Please fill in all required fields.");
             return;
         }
 
-        // ✅ Create Character Card
-        const card = document.createElement("div");
-        card.classList.add("character-card");
+        const characterCard = document.createElement("div");
+        characterCard.classList.add("character-card");
 
-        // ✅ Placeholder Image or Uploaded Image
-        const img = document.createElement("img");
-        if (imageInput.files.length > 0) {
-            img.src = URL.createObjectURL(imageInput.files[0]);
+        // Create Image Element
+        const image = document.createElement("img");
+        if (imageInput) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                image.src = e.target.result;
+            };
+            reader.readAsDataURL(imageInput);
         } else {
-            img.src = "assets/images/placeholder.png"; // Default Placeholder
+            image.src = defaultImage;
         }
+        characterCard.appendChild(image);
 
-        // ✅ Character Info
+        // Create Info Container
         const info = document.createElement("div");
         info.classList.add("character-info");
-        info.innerHTML = `<strong>${name}</strong><br>Actor: ${actor}<br>Age: ${age}`;
+        info.innerHTML = `
+            <p><strong>${name}</strong></p>
+            <p>Actor: ${actor}</p>
+            <p>Age: ${age}</p>
+            <p>Skin Tone: ${skinTone}</p>
+            <p>Hair Type: ${hairType}</p>
+            <p>Special: ${specialReq}</p>
+        `;
+        characterCard.appendChild(info);
 
-        // ✅ Delete Button
+        // Delete Button
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("delete-character");
         deleteBtn.innerHTML = "❌";
-        deleteBtn.addEventListener("click", function () {
-            characterList.removeChild(card);
+        deleteBtn.addEventListener("click", () => {
+            characterCard.remove();
         });
+        characterCard.appendChild(deleteBtn);
 
-        // ✅ Append Elements
-        card.appendChild(deleteBtn);
-        card.appendChild(img);
-        card.appendChild(info);
-        characterList.appendChild(card);
+        characterList.appendChild(characterCard);
 
-        // ✅ Clear Form
+        // Reset Form
         characterForm.reset();
-    });
+    }
+
+    // Attach Event Listener
+    addCharacterButton.addEventListener("click", addCharacter);
 });
