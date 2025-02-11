@@ -6,158 +6,100 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-/* 🎭 **Main Workspace Layout** */
+/* ✅ Main Container */
 .character-breakdown-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* Left: Main sections, Right: Tools */
-    gap: 15px;
-    width: 95%;
-    max-width: 1400px;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 1100px; /* 🔹 Reduced for better alignment */
+    padding: 20px;
 }
 
-/* ✅ **Grid Layout for Main Sections** */
-.character-main-sections {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-/* 🎭 **Character Profiles & Digital Face Chart** */
+/* ✅ Character Profiles & Digital Face Chart in a Grid */
 .character-profiles-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr; /* 🔹 Ensures two equal columns */
     gap: 15px;
+    width: 100%;
+    align-items: start;
 }
 
-/* ✅ **General Section Styling** */
+/* 🎭 Character Section */
 .character-section {
     background: white;
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px; /* 🔹 Reduce space between sections */
 }
 
-/* ✅ **Compact Character Profiles Grid** */
-.character-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
-    justify-content: center;
+/* 🎭 Character Profiles */
+.character-section:first-child {
     width: 100%;
 }
 
-/* 🎭 **Character Cards (Reduced Size)** */
-.character-card {
-    background: white;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 120px;
-    font-size: 12px;
-}
-
-/* 🎭 **Character Image Placeholder** */
-.character-card img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-/* 🎨 **Film Color Palette (Compact Layout)** */
-.film-color-palette {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
-}
-
-/* ✅ **Swatches Grid: 2 Rows of 5, Smaller Size** */
-.swatches-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 30px);
-    grid-template-rows: repeat(2, 30px);
-    gap: 5px;
-}
-
-/* 🎨 **Digital Face Chart Section** */
+/* 🎭 Digital Face Chart */
 .digital-face-chart {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 10px;
     width: 100%;
-    max-width: 800px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 📌 **Left Panel (Upload & Saved Looks)** */
+/* ✅ Digital Face Chart Layout */
+.face-chart-container {
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    gap: 10px;
+}
+
+/* 📌 Left Panel (Upload & Saved Looks) */
 .face-chart-left {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
-/* ✅ **Headshot Placeholder (Compact)** */
-.headshot-placeholder {
-    width: 100%;
-    height: 120px;
-    background: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    font-size: 12px;
-    color: #666;
-}
-
-/* 🎨 **Center Panel (Canvas for Face Editing)** */
+/* 📌 Center: Editable Face Chart */
 .face-chart-center {
     text-align: center;
-}
-
-#faceCanvas {
-    width: 100%;
-    height: 250px;
     background: #f5f5f5;
-    border-radius: 8px;
+    border-radius: 10px;
+    padding: 15px;
 }
 
-/* 🎨 **Right Panel (Makeup Tools)** */
+/* 📌 Right Panel: Makeup & Hair Tools */
 .face-chart-right {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
-.tool-btn {
-    padding: 5px;
-    border: none;
-    background: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 12px;
+/* ✅ Film Color Palette */
+.film-color-palette {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.tool-btn:hover {
-    background: #0056b3;
+/* ✅ Swatches Grid */
+.swatches-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 45px);
+    gap: 10px;
 }
 
-/* 🎬 **Scene Assignments (Compact)** */
-.scene-assignments {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+/* ✅ Moodboards, Notes, Lookbooks in a Row */
+.character-extras-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 🔹 Places them side by side */
+    gap: 15px;
+    width: 100%;
+    margin-top: 15px;
 }
