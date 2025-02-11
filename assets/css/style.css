@@ -102,70 +102,48 @@ body {
 .lookbook-card:hover {
     transform: translateY(-5px);
 }
-/* 🎨 Film Color Palette Styles */
+/* 🎨 Film Color Palette: Make Sure It Stays the Same Size */
 .film-color-palette {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    width: 50%; /* Adjusted to match the Character Profiles */
+    max-width: 600px; /* Keep it compact */
     background: white;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.palette-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-}
-
-/* ✅ Large Color Wheel */
-.color-wheel-container {
-    width: 200px;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.color-wheel {
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    border: none;
-}
-
-/* ✅ Dynamic Color Swatches */
-.color-palette {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* ✅ Adjust Color Palette Elements */
+.palette-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+/* ✅ Make Core Color & Swatches Smaller to Match */
 .core-color {
-    width: 80px;
-    height: 80px;
-    background: #D3D3D3;
-    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
     text-align: center;
-    line-height: 80px;
+    line-height: 70px;
     font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 14px;
 }
 
 .swatches-grid {
     display: grid;
-    grid-template-columns: repeat(5, 50px);
+    grid-template-columns: repeat(5, 45px); /* Makes sure swatches fit neatly */
     gap: 10px;
 }
 
 .swatch {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
@@ -174,7 +152,6 @@ body {
 .swatch:hover {
     transform: scale(1.1);
 }
-
 /* ✅ Reset Button */
 #resetPalette {
     margin-top: 15px;
