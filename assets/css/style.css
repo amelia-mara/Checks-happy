@@ -11,17 +11,24 @@ body {
 
 /* ✅ Main Layout */
 .character-breakdown-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* Left (Main UI) | Right (Extras) */
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
     width: 90%;
     max-width: 1200px;
     padding: 20px;
+    gap: 20px;
 }
 
-/* ✅ Responsive Layout for iPad & Mobile */
+/* ✅ Grid Layout for Main Sections */
+.main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Left: Profiles & Face Chart | Right: Extras */
+    gap: 20px;
+}
+
+/* ✅ Responsive Adjustments */
 @media screen and (max-width: 1024px) {
-    .character-breakdown-container {
+    .main-content {
         grid-template-columns: 1fr; /* Stack sections on smaller screens */
     }
 
@@ -38,16 +45,16 @@ body {
     }
 }
 
-/* ✅ Left Side - Profiles, Face Chart */
-.character-profiles-container {
+/* ✅ Left Side: Character Profiles & Digital Face Chart */
+.left-panel {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
 }
 
-/* ✅ Right Side - Extras */
-.character-extras-container {
+/* ✅ Right Side: Moodboards, Notes, Lookbooks */
+.right-panel {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -101,6 +108,11 @@ body {
     border-radius: 12px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
+}
+
+/* ✅ Ensuring Digital Face Chart is Separate */
+#digital-face-chart {
+    margin-top: 20px; /* Space it away from Character Profiles */
 }
 
 /* 📌 Face Chart Layout */
@@ -160,7 +172,7 @@ body {
 }
 
 /* ✅ Moodboards, Notes, Lookbooks Grid */
-.extras-grid {
+.character-extras-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
