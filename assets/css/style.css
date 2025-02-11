@@ -64,7 +64,7 @@ body {
     align-items: center;
 }
 
-/* 🎨 ✅ Swatches Grid: 2 Rows of 5 */
+/* 🎨 Swatches Grid: 2 Rows of 5 */
 .swatches-grid {
     display: grid;
     grid-template-columns: repeat(5, 45px); /* ✅ 5 columns */
@@ -74,7 +74,7 @@ body {
     justify-content: center;
 }
 
-/* 🎨 ✅ Individual Swatch */
+/* 🎨 Swatch Styling */
 .swatch {
     width: 45px;
     height: 45px;
@@ -86,7 +86,6 @@ body {
 .swatch:hover {
     transform: scale(1.1);
 }
-
 /* 🎨 ✅ Reset Button */
 #resetPalette {
     margin-top: 15px;
