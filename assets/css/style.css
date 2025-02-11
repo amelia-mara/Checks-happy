@@ -207,3 +207,51 @@ body {
 .lookbook-card:hover {
     transform: translateY(-5px);
 }
+/* 🌍 Dashboard Layout */
+.dashboard-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* ✅ Navigation */
+.dashboard-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.dashboard-link {
+    text-decoration: none;
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.dashboard-link:hover {
+    background: #0056b3;
+}
+
+/* 📊 Stats Section */
+.dashboard-stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Recent Activity */
+.dashboard-section {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
