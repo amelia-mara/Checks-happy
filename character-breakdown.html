@@ -11,23 +11,41 @@
         <h1>Character Breakdown & Design</h1>
         <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
 
-        <!-- Character Profiles -->
-        <div class="character-section">
-            <h2>Character Profiles</h2>
-            <form id="character-form">
-                <input type="text" id="character-name" placeholder="Character Name">
-                <input type="text" id="actor-name" placeholder="Actor Name">
-                <input type="number" id="character-age" placeholder="Age">
-                <input type="text" id="skin-tone" placeholder="Skin Tone">
-                <input type="text" id="hair-type" placeholder="Hair Type">
-                <textarea id="special-requirements" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
-                <input type="file" id="character-image" accept="image/*">
-                <button type="button" onclick="addCharacter()">Add Character</button>
-            </form>
-            <div id="character-list" class="character-list"></div>
+        <!-- ✅ Wrap Character Profiles & Film Color Palette in a Row Container -->
+        <div class="character-profiles-container">
+            <!-- ✅ Character Profiles (Left) -->
+            <div class="character-section">
+                <h2>Character Profiles</h2>
+                <form id="character-form">
+                    <input type="text" id="character-name" placeholder="Character Name">
+                    <input type="text" id="actor-name" placeholder="Actor Name">
+                    <input type="number" id="character-age" placeholder="Age">
+                    <input type="text" id="skin-tone" placeholder="Skin Tone">
+                    <input type="text" id="hair-type" placeholder="Hair Type">
+                    <textarea id="special-requirements" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
+                    <input type="file" id="character-image" accept="image/*">
+                    <button type="button" onclick="addCharacter()">Add Character</button>
+                </form>
+                <div id="character-list" class="character-list"></div>
+            </div>
+
+            <!-- ✅ Film Color Palette (Right) -->
+            <div class="character-section film-color-palette">
+                <h2>🎨 Film Color Palette</h2>
+                <div class="palette-container">
+                    <div class="color-wheel-container">
+                        <input type="color" id="colorWheel" class="color-wheel">
+                    </div>
+                    <div class="color-palette">
+                        <div class="core-color" id="coreColor">Core</div>
+                        <div id="colorSwatches" class="swatches-grid"></div>
+                        <button id="resetPalette">Reset Palette</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Moodboards Section -->
+        <!-- ✅ Moodboards Section -->
         <div class="character-section">
             <h2>Moodboards</h2>
             <div class="moodboard-upload" onclick="document.getElementById('moodboard-input').click()">Drag & Drop Images Here</div>
@@ -35,7 +53,7 @@
             <div class="moodboard-grid" id="moodboard-grid"></div>
         </div>
 
-        <!-- 📝 Notes Section -->
+        <!-- ✅ Notes Section -->
         <div class="character-section">
             <h2>📝 Character Notes</h2>
             <textarea id="characterNotes" placeholder="Write your notes here..." rows="5"></textarea>
@@ -43,32 +61,13 @@
             <p id="notesMessage" style="color: green; display: none;">✅ Notes saved!</p>
         </div>
 
-        <!-- Lookbooks Section -->
+        <!-- ✅ Lookbooks Section -->
         <div class="character-section">
             <h2>Lookbooks</h2>
             <div class="lookbook-grid" id="lookbook-grid"></div>
         </div>
 
-        <!-- 🎨 Film Color Palette Section -->
-        <div class="character-section film-color-palette">
-            <h2>🎨 Film Color Palette</h2>
-            
-            <div class="palette-container">
-                <!-- ✅ Large Color Wheel (Left Side) -->
-                <div class="color-wheel-container">
-                    <input type="color" id="colorWheel" class="color-wheel">
-                </div>
-
-                <!-- ✅ Dynamic Color Palette (Right Side) -->
-                <div class="color-palette">
-                    <div class="core-color" id="coreColor">Core Color</div>
-                    <div id="colorSwatches" class="swatches-grid"></div>
-                    <button id="resetPalette">Reset Palette</button>
-                </div>
-            </div>
-        </div>
-
-    </div> <!-- ✅ Now this properly closes the container -->
+    </div> <!-- ✅ Closes character-breakdown-container -->
 
     <!-- ✅ JavaScript Files -->
     <script src="assets/js/character-breakdown.js"></script>
