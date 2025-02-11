@@ -3,73 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Breakdown & Design</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="character-breakdown-container">
-        <h1>Character Breakdown & Design</h1>
-        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+    <div class="dashboard-container">
+        <h1>🎬 Production Dashboard</h1>
 
-        <!-- 🎭 Character Profiles Section (Replace old version with this) -->
-        <div class="character-section">
-            <h2>🎭 Character Profiles</h2>
+        <!-- ✅ Navigation Links -->
+        <nav class="dashboard-nav">
+            <a href="character-breakdown.html" class="dashboard-link">🎭 Character Breakdown</a>
+            <a href="schedule.html" class="dashboard-link">📅 Shooting Schedule</a>
+            <a href="budget.html" class="dashboard-link">💰 Budget</a>
+            <a href="inventory.html" class="dashboard-link">📦 Inventory</a>
+        </nav>
 
-            <!-- ✅ Form to Add Characters -->
-            <form id="character-form">
-                <input type="text" id="character-name" placeholder="Character Name" required>
-                <input type="text" id="actor-name" placeholder="Actor Name" required>
-                <input type="number" id="character-age" placeholder="Age" required>
-                <input type="text" id="skin-tone" placeholder="Skin Tone">
-                <input type="text" id="hair-type" placeholder="Hair Type">
-                <textarea id="special-requirements" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
-                <input type="file" id="character-image" accept="image/*">
-                <button type="button" id="addCharacter">➕ Add Character</button>
-            </form>
-
-            <!-- ✅ Dynamic Character Grid -->
-            <div id="character-list" class="character-grid"></div>
-        </div>
-
-        <!-- 🎨 Film Color Palette Section -->
-        <div class="character-section film-color-palette">
-            <h2>🎨 Film Color Palette</h2>
-            <div class="palette-container">
-                <div class="color-wheel-container">
-                    <input type="color" id="colorWheel" class="color-wheel">
-                </div>
-                <div class="color-palette">
-                    <div id="colorSwatches" class="swatches-grid"></div>
-                    <button id="resetPalette">Reset Palette</button>
-                </div>
+        <!-- ✅ Quick Stats -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>🎭 Characters</h3>
+                <p id="characterCount">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>🎬 Scenes Planned</h3>
+                <p id="sceneCount">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>💰 Budget Used</h3>
+                <p id="budgetUsed">$0</p>
             </div>
         </div>
 
-        <!-- 📝 Moodboards Section -->
-        <div class="character-section">
-            <h2>Moodboards</h2>
-            <div class="moodboard-upload" onclick="document.getElementById('moodboard-input').click()">Drag & Drop Images Here</div>
-            <input type="file" id="moodboard-input" accept="image/*" multiple style="display: none;">
-            <div class="moodboard-grid" id="moodboard-grid"></div>
+        <!-- ✅ Recent Activity -->
+        <div class="dashboard-section">
+            <h2>📌 Recent Updates</h2>
+            <ul id="recentActivity">
+                <li>No recent activity.</li>
+            </ul>
         </div>
+    </div>
 
-        <!-- 📝 Notes Section -->
-        <div class="character-section">
-            <h2>📝 Character Notes</h2>
-            <textarea id="characterNotes" placeholder="Write your notes here..." rows="5"></textarea>
-            <button id="saveNotes">Save Notes</button>
-            <p id="notesMessage" style="color: green; display: none;">✅ Notes saved!</p>
-        </div>
-
-        <!-- 📚 Lookbooks Section -->
-        <div class="character-section">
-            <h2>Lookbooks</h2>
-            <div class="lookbook-grid" id="lookbook-grid"></div>
-        </div>
-    </div> <!-- ✅ Closing character-breakdown-container -->
-
-    <!-- ✅ JavaScript Files -->
-    <script src="assets/js/character-breakdown.js"></script>
-    <script src="assets/js/filmColorPalette.js"></script>
+    <!-- ✅ JavaScript File for Dashboard Functionality -->
+    <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
