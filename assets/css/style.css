@@ -66,40 +66,29 @@ body {
 
 /* 🎨 Swatches Grid: 2 Rows of 5 */
 .swatches-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 45px); /* ✅ 5 columns */
-    grid-template-rows: repeat(2, 45px); /* ✅ 2 rows */
+    display: flex; /* ✅ Use flexbox */
+    flex-wrap: wrap; /* ✅ Allows wrapping into two rows */
+    justify-content: center; /* ✅ Centers swatches */
     gap: 10px;
-    align-items: center;
-    justify-content: center;
+    width: 100%; /* ✅ Makes sure it fits properly */
+    max-width: 250px; /* ✅ Prevents too much stretching */
+    margin-top: 10px;
 }
-
 /* 🎨 Swatch Styling */
 .swatch {
     width: 45px;
     height: 45px;
     border-radius: 5px;
+    background: #D3D3D3; /* Default placeholder */
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .swatch:hover {
     transform: scale(1.1);
-}
-/* 🎨 ✅ Reset Button */
-#resetPalette {
-    margin-top: 15px;
-    padding: 8px 15px;
-    background: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.2s ease-in-out;
-}
-
-#resetPalette:hover {
-    background: #e63939;
 }
 
 /* ✅ Image Upload Styles */
