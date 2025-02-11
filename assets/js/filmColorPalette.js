@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Film Color Palette Loaded!");
 
-    // Get elements
     const colorWheel = document.getElementById("colorWheel");
     const coreColor = document.getElementById("coreColor");
     const colorSwatches = document.getElementById("colorSwatches");
@@ -12,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    let palette = Array(5).fill("#D3D3D3"); // Default placeholder colors
+    let palette = Array(10).fill("#D3D3D3"); // Default 10 swatches
 
     // ✅ Update core color from the color wheel
     colorWheel.addEventListener("input", function (event) {
@@ -31,21 +30,28 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ Update the UI with swatches
     function updateSwatches() {
         colorSwatches.innerHTML = ""; // Clear previous swatches
-        palette.forEach((color) => {
+        palette.forEach((color, index) => {
             let swatch = document.createElement("div");
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
+
+            // Make swatch clickable to update
             swatch.addEventListener("click", function () {
-                colorWheel.value = color;
-                coreColor.style.backgroundColor = color;
+                const newColor = prompt("Enter a new color (hex code or color name):", color);
+                if (newColor) {
+                    palette[index] = newColor;
+                    updateSwatches();
+                }
             });
+
+            // Append the swatch to the container
             colorSwatches.appendChild(swatch);
         });
     }
 
     // ✅ Reset Palette
     resetButton.addEventListener("click", function () {
-        palette = Array(5).fill("#D3D3D3");
+        palette = Array(10).fill("#D3D3D3");
         coreColor.style.backgroundColor = "#D3D3D3";
         updateSwatches();
     });
