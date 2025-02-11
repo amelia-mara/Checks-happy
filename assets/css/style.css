@@ -102,10 +102,10 @@ body {
 .lookbook-card:hover {
     transform: translateY(-5px);
 }
-/* 🎨 Film Color Palette: Make Sure It Stays the Same Size */
+/* 🎨 Film Color Palette Section */
 .film-color-palette {
-    width: 50%; /* Adjusted to match the Character Profiles */
-    max-width: 600px; /* Keep it compact */
+    width: 50%; /* Same width as Character Profiles */
+    max-width: 600px;
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -115,32 +115,31 @@ body {
     align-items: center;
 }
 
-/* ✅ Adjust Color Palette Elements */
-.palette-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-}
-
-/* ✅ Make Core Color & Swatches Smaller to Match */
-.core-color {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    text-align: center;
-    line-height: 70px;
-    font-weight: bold;
-    font-size: 14px;
-}
-
+/* ✅ Swatches Grid: 2 Rows of 5 */
 .swatches-grid {
     display: grid;
-    grid-template-columns: repeat(5, 45px); /* Makes sure swatches fit neatly */
+    grid-template-columns: repeat(5, 45px); /* 5 columns */
+    grid-template-rows: repeat(2, 45px); /* 2 rows */
     gap: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
+/* ✅ Core Color: Rectangle Spanning Both Rows */
+.core-color {
+    width: 100px; /* Matches width of 2 swatches */
+    height: 100px; /* Matches height of both rows */
+    border-radius: 8px;
+    text-align: center;
+    line-height: 100px;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✅ Swatch Styling */
 .swatch {
     width: 45px;
     height: 45px;
@@ -152,6 +151,7 @@ body {
 .swatch:hover {
     transform: scale(1.1);
 }
+
 /* ✅ Reset Button */
 #resetPalette {
     margin-top: 15px;
