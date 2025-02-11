@@ -1,4 +1,4 @@
-/* Global Styles */
+/* 🌍 Global Styles */
 body {
     font-family: 'Lexend', sans-serif;
     background: #f8f9fa;
@@ -8,7 +8,7 @@ body {
     justify-content: center;
 }
 
-/* Character Breakdown Layout */
+/* ✅ Character Breakdown Layout */
 .character-breakdown-container {
     display: flex;
     flex-direction: column;
@@ -18,10 +18,19 @@ body {
     padding: 20px;
 }
 
-/* Compact Sections */
-.character-section {
+/* ✅ Row Layout for Character Profiles & Film Color Palette */
+.character-profiles-container {
+    display: flex;
+    flex-direction: row; /* ✅ Ensures side-by-side layout */
+    justify-content: space-between;
+    gap: 20px;
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
+    align-items: flex-start; /* ✅ Aligns to the top properly */
+}
+
+/* ✅ Compact Sections (Character Profiles & Film Color Palette) */
+.character-section {
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -29,19 +38,86 @@ body {
     margin-bottom: 20px;
 }
 
-/* Responsive Two-Column Layout */
-.character-flex-container {
+/* ✅ Character Profiles Styling */
+.character-section:first-child {
+    width: 50%; /* ✅ Matches Film Color Palette width */
+    max-width: 600px;
+}
+
+/* 🎨 ✅ Film Color Palette */
+.film-color-palette {
+    width: 50%; /* ✅ Same width as Character Profiles */
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 }
 
-.character-flex-container .character-section {
-    flex: 1 1 48%; /* Two-column layout */
+/* ✅ Color Palette Layout */
+.palette-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
-/* Image Upload Styles */
+/* 🎨 ✅ Swatches Grid: 2 Rows of 5 */
+.swatches-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 45px); /* ✅ 5 columns */
+    grid-template-rows: repeat(2, 45px); /* ✅ 2 rows */
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 🎨 ✅ Core Color: Rectangle Spanning Both Rows */
+.core-color {
+    width: 100px; /* ✅ Matches width of 2 swatches */
+    height: 100px; /* ✅ Matches height of both rows */
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D3D3D3;
+}
+
+/* 🎨 ✅ Individual Swatch */
+.swatch {
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.swatch:hover {
+    transform: scale(1.1);
+}
+
+/* 🎨 ✅ Reset Button */
+#resetPalette {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+#resetPalette:hover {
+    background: #e63939;
+}
+
+/* ✅ Image Upload Styles */
 .moodboard-upload {
     width: 100%;
     max-width: 500px;
@@ -62,7 +138,7 @@ body {
     background: rgba(0, 123, 255, 0.1);
 }
 
-/* Uploaded Images Grid */
+/* ✅ Uploaded Images Grid */
 .moodboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -81,7 +157,7 @@ body {
     transform: scale(1.05);
 }
 
-/* Lookbooks Layout */
+/* ✅ Lookbooks Layout */
 .lookbook-grid {
     display: flex;
     flex-wrap: wrap;
@@ -101,69 +177,4 @@ body {
 
 .lookbook-card:hover {
     transform: translateY(-5px);
-}
-/* 🎨 Film Color Palette Section */
-.film-color-palette {
-    width: 50%; /* Same width as Character Profiles */
-    max-width: 600px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* ✅ Swatches Grid: 2 Rows of 5 */
-.swatches-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 45px); /* 5 columns */
-    grid-template-rows: repeat(2, 45px); /* 2 rows */
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ✅ Core Color: Rectangle Spanning Both Rows */
-.core-color {
-    width: 100px; /* Matches width of 2 swatches */
-    height: 100px; /* Matches height of both rows */
-    border-radius: 8px;
-    text-align: center;
-    line-height: 100px;
-    font-weight: bold;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ✅ Swatch Styling */
-.swatch {
-    width: 45px;
-    height: 45px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-
-.swatch:hover {
-    transform: scale(1.1);
-}
-
-/* ✅ Reset Button */
-#resetPalette {
-    margin-top: 15px;
-    padding: 8px 15px;
-    background: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.2s ease-in-out;
-}
-
-#resetPalette:hover {
-    background: #e63939;
 }
