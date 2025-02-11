@@ -8,14 +8,55 @@ body {
     justify-content: center;
 }
 
-/* ✅ Character Breakdown Layout */
-.character-breakdown-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
-    max-width: 1200px;
-    padding: 20px;
+/* 🎭 Character Grid Layout */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Auto-fit for dynamic resizing */
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* 🎭 Character Card */
+.character-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 150px;
+    font-family: 'Lexend', sans-serif;
+    position: relative;
+}
+
+/* 🎭 Placeholder Image */
+.character-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+/* 🎭 Character Info */
+.character-info {
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* 🗑️ Delete Button */
+.delete-character {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
 }
 
 /* ✅ Row Layout for Character Profiles & Film Color Palette */
