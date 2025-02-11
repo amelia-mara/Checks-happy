@@ -2,175 +2,146 @@
 body {
     font-family: 'Lexend', sans-serif;
     background: #CFE8E4; /* Pastel Duck Egg Blue */
-    color: #333; /* Darker text for contrast */
+    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
 }
 
-/* ✅ Main Container */
+/* ✅ Main Layout */
 .character-breakdown-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 95%;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Left (Main UI) | Right (Extras) */
+    gap: 20px;
+    width: 90%;
     max-width: 1200px;
     padding: 20px;
 }
 
-/* ✅ Character Profiles & Digital Face Chart Layout */
+/* ✅ Left Side - Profiles, Face Chart */
 .character-profiles-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     width: 100%;
-    align-items: start;
 }
 
-/* 🎭 Character Profile Card */
-.character-card {
+/* ✅ Right Side - Extras */
+.character-extras-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* 🎭 Character Profiles */
+.character-section {
     background: white;
-    border-radius: 15px;
     padding: 15px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: 0.3s ease-in-out;
-    position: relative;
-}
-
-/* 🎭 Profile Image */
-.character-card img {
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 2px solid #ccc;
 }
 
-/* 🎭 Character Info */
-.character-info {
-    font-size: 14px;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-/* ✅ Floating Glow Effect on Hover */
-.character-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* ✅ Digital Face Chart */
-.digital-face-chart {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-/* ✅ Digital Face Chart Layout */
-.face-chart-container {
+/* 🎭 Character Form */
+.character-form {
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
-/* 📌 Left Panel: Upload & Saved Looks */
+/* 🎭 Character Profile Cards */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+/* 🎭 Character Card */
+.character-card {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.character-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* 🎭 Digital Face Chart */
+.digital-face-chart {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* 📌 Face Chart Layout */
+.face-chart-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 15px;
+    align-items: start;
+}
+
+/* ✅ Left: Upload & Saved Looks */
 .face-chart-left {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* 📌 Center: Editable Face Chart */
+/* ✅ Center: Editable Face Chart */
 .face-chart-center {
     background: #F5F5F5;
     border-radius: 10px;
-    padding: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* 📌 Right Panel: Makeup & Hair Tools */
+/* ✅ Right: Makeup & Hair Tools */
 .face-chart-right {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* ✅ Pill-Shaped Buttons */
+/* ✅ Rounded Buttons */
 .tool-btn {
-    padding: 10px;
+    padding: 8px;
     border: none;
     background: linear-gradient(145deg, #ff7799, #ff3366);
     color: white;
-    cursor: pointer;
     border-radius: 50px;
-    text-align: center;
     font-weight: bold;
-    transition: 0.2s ease-in-out;
+    transition: 0.2s;
 }
 
 .tool-btn:hover {
-    background: #ff99aa;
     transform: scale(1.05);
 }
 
-/* ✅ Film Color Palette */
+/* 🎨 Film Color Palette */
 .film-color-palette {
     width: 100%;
+    background: white;
     padding: 15px;
     border-radius: 10px;
-    background: white;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* ✅ Swatches Grid */
-.swatches-grid {
+/* ✅ Moodboards, Notes, Lookbooks Grid */
+.extras-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 45px);
-    gap: 10px;
-}
-
-/* ✅ Lookbook Thumbnail Grid */
-.lookbook-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
-}
-
-/* ✅ Lookbook Items */
-.lookbook-card {
-    background: white;
-    padding: 12px;
-    border-radius: 12px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: 0.3s ease-in-out;
-}
-
-.lookbook-card:hover {
-    transform: scale(1.05);
-}
-
-/* ✅ Smooth UI Transitions */
-button, input, textarea {
-    font-size: 14px;
-    border-radius: 5px;
-}
-
-/* ✅ Upload Placeholder */
-.headshot-placeholder {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
     width: 100%;
-    height: 140px;
-    background: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 12px;
-    color: #666;
 }
