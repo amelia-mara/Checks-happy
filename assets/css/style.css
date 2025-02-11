@@ -60,20 +60,23 @@ body {
 /* ✅ Color Palette Layout */
 .palette-container {
     display: flex;
-    gap: 15px;
+    flex-direction: column;
     align-items: center;
+    gap: 15px;
 }
 
 /* 🎨 Swatches Grid: 2 Rows of 5 */
 .swatches-grid {
-    display: flex; /* ✅ Use flexbox */
-    flex-wrap: wrap; /* ✅ Allows wrapping into two rows */
-    justify-content: center; /* ✅ Centers swatches */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* ✅ 5 columns */
+    grid-template-rows: repeat(2, 45px); /* ✅ 2 rows */
     gap: 10px;
-    width: 100%; /* ✅ Makes sure it fits properly */
-    max-width: 250px; /* ✅ Prevents too much stretching */
+    justify-content: center; /* ✅ Centers the grid */
+    width: 100%;
+    max-width: 250px;
     margin-top: 10px;
 }
+
 /* 🎨 Swatch Styling */
 .swatch {
     width: 45px;
@@ -91,10 +94,21 @@ body {
     transform: scale(1.1);
 }
 
+/* ✅ Moodboards, Notes & Lookbooks in a Row */
+.character-extras-container {
+    display: flex;
+    flex-direction: row; /* ✅ Places them side by side */
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    align-items: flex-start;
+}
+
 /* ✅ Image Upload Styles */
 .moodboard-upload {
     width: 100%;
-    max-width: 500px;
+    max-width: 350px;
     height: 200px;
     border: 2px dashed #007bff;
     border-radius: 10px;
