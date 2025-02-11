@@ -1,8 +1,8 @@
 /* 🌍 Global Styles */
 body {
     font-family: 'Lexend', sans-serif;
-    background: #1E1E1E; /* Dark mode aesthetic */
-    color: #ECECEC;
+    background: #CFE8E4; /* Pastel Duck Egg Blue */
+    color: #333; /* Darker text for contrast */
     margin: 0;
     padding: 0;
     display: flex;
@@ -30,14 +30,13 @@ body {
 
 /* 🎭 Character Profile Card */
 .character-card {
-    background: linear-gradient(145deg, #242424, #1a1a1a);
+    background: white;
     border-radius: 15px;
     padding: 15px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.1);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: 0.3s ease-in-out;
     position: relative;
-    color: white;
 }
 
 /* 🎭 Profile Image */
@@ -46,7 +45,7 @@ body {
     height: 160px;
     object-fit: cover;
     border-radius: 10px;
-    border: 2px solid #555;
+    border: 2px solid #ccc;
 }
 
 /* 🎭 Character Info */
@@ -59,17 +58,16 @@ body {
 /* ✅ Floating Glow Effect on Hover */
 .character-card:hover {
     transform: scale(1.03);
-    box-shadow: 0px 4px 10px rgba(255, 105, 180, 0.3);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* ✅ Digital Face Chart */
 .digital-face-chart {
-    background: linear-gradient(145deg, #242424, #1a1a1a);
+    background: white;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.1);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    color: white;
 }
 
 /* ✅ Digital Face Chart Layout */
@@ -88,7 +86,7 @@ body {
 
 /* 📌 Center: Editable Face Chart */
 .face-chart-center {
-    background: #1a1a1a;
+    background: #F5F5F5;
     border-radius: 10px;
     padding: 15px;
 }
@@ -104,7 +102,7 @@ body {
 .tool-btn {
     padding: 10px;
     border: none;
-    background: linear-gradient(145deg, #ff0066, #cc0052);
+    background: linear-gradient(145deg, #ff7799, #ff3366);
     color: white;
     cursor: pointer;
     border-radius: 50px;
@@ -114,7 +112,7 @@ body {
 }
 
 .tool-btn:hover {
-    background: #ff3399;
+    background: #ff99aa;
     transform: scale(1.05);
 }
 
@@ -123,7 +121,8 @@ body {
     width: 100%;
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.1);
+    background: white;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* ✅ Swatches Grid */
@@ -144,10 +143,10 @@ body {
 
 /* ✅ Lookbook Items */
 .lookbook-card {
-    background: linear-gradient(145deg, #242424, #1a1a1a);
+    background: white;
     padding: 12px;
     border-radius: 12px;
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3), -3px -3px 6px rgba(255, 255, 255, 0.1);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: 0.3s ease-in-out;
 }
@@ -166,12 +165,12 @@ button, input, textarea {
 .headshot-placeholder {
     width: 100%;
     height: 140px;
-    background: #333;
+    background: #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     border-radius: 10px;
     font-size: 12px;
-    color: #ccc;
+    color: #666;
 }
