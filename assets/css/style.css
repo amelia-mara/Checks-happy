@@ -74,20 +74,6 @@ body {
     justify-content: center;
 }
 
-/* 🎨 ✅ Core Color: Rectangle Spanning Both Rows */
-.core-color {
-    width: 100px; /* ✅ Matches width of 2 swatches */
-    height: 100px; /* ✅ Matches height of both rows */
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #D3D3D3;
-}
-
 /* 🎨 ✅ Individual Swatch */
 .swatch {
     width: 45px;
