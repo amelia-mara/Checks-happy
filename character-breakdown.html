@@ -27,6 +27,46 @@
                     <button type="button" onclick="addCharacter()">Add Character</button>
                 </form>
                 <div id="character-list" class="character-list"></div>
+
+                <!-- 🎭 Digital Face Chart (Now Inside Character Profiles) -->
+                <div class="character-section digital-face-chart">
+                    <h2>🎭 Digital Face Chart</h2>
+
+                    <div class="face-chart-container">
+                        <!-- 📌 Left Panel: Upload & Saved Looks -->
+                        <div class="face-chart-left">
+                            <h3>📸 Upload Headshot</h3>
+                            <input type="file" id="uploadHeadshot" accept="image/*">
+                            <div id="headshotPreview" class="headshot-placeholder">No Image Uploaded</div>
+
+                            <h3>🎭 Saved Looks</h3>
+                            <div id="savedLooks" class="saved-looks-grid"></div>
+                        </div>
+
+                        <!-- 🎨 Center Workspace: Editable Face Chart -->
+                        <div class="face-chart-center">
+                            <canvas id="faceCanvas"></canvas>
+                            <p>Use AI tools to apply makeup & hair changes.</p>
+                        </div>
+
+                        <!-- 🎨 Right Panel: Makeup & Hair Tools -->
+                        <div class="face-chart-right">
+                            <h3>🎨 Makeup & Hair Tools</h3>
+                            <button class="tool-btn" id="foundationTool">💄 Foundation</button>
+                            <button class="tool-btn" id="eyesTool">👁️ Eyes</button>
+                            <button class="tool-btn" id="lipsTool">💋 Lips</button>
+                            <button class="tool-btn" id="hairTool">💇 Hair</button>
+                            <button class="tool-btn" id="resetFaceChart">🔄 Reset</button>
+                        </div>
+                    </div>
+
+                    <!-- 🎬 Scene Assignments -->
+                    <div class="scene-assignments">
+                        <h3>🎬 Assign Look to Scene</h3>
+                        <input type="text" id="sceneName" placeholder="Scene Name">
+                        <button id="saveLook">💾 Save Look</button>
+                    </div>
+                </div>
             </div>
 
             <!-- 🎨 ✅ Film Color Palette (Right) -->
@@ -77,5 +117,6 @@
     <!-- ✅ JavaScript Files -->
     <script src="assets/js/character-breakdown.js"></script>
     <script src="assets/js/filmColorPalette.js"></script>
+    <script src="assets/js/digitalFaceChart.js"></script> <!-- ✅ New JS file for Face Chart -->
 </body>
 </html>
