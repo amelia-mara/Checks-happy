@@ -19,6 +19,25 @@ body {
     padding: 20px;
 }
 
+/* ✅ Responsive Layout for iPad & Mobile */
+@media screen and (max-width: 1024px) {
+    .character-breakdown-container {
+        grid-template-columns: 1fr; /* Stack sections on smaller screens */
+    }
+
+    .face-chart-container {
+        grid-template-columns: 1fr; /* Stack face chart elements */
+    }
+
+    .character-extras-container {
+        grid-template-columns: 1fr; /* Stack extras */
+    }
+
+    .film-color-palette {
+        width: 100%;
+    }
+}
+
 /* ✅ Left Side - Profiles, Face Chart */
 .character-profiles-container {
     display: flex;
@@ -33,6 +52,7 @@ body {
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
+    width: 100%;
 }
 
 /* 🎭 Character Profiles */
@@ -124,6 +144,7 @@ body {
     border-radius: 50px;
     font-weight: bold;
     transition: 0.2s;
+    text-align: center;
 }
 
 .tool-btn:hover {
@@ -141,7 +162,7 @@ body {
 /* ✅ Moodboards, Notes, Lookbooks Grid */
 .extras-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
     width: 100%;
 }
