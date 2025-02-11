@@ -4,174 +4,44 @@ body {
     background: #CFE8E4; /* Pastel Duck Egg Blue */
     color: #333;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     display: flex;
     justify-content: center;
 }
 
-/* ✅ Main Layout */
+/* ✅ Container & Layout Fixes */
 .character-breakdown-container {
-    display: flex;
-    flex-direction: column;
     width: 90%;
-    max-width: 1400px;
-    gap: 25px;
+    max-width: 1200px;
+    padding: 20px;
 }
 
-/* ✅ Grid Layout for Main Sections */
+/* ✅ Main Content Grid */
 .main-content {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* Left: Profiles & Face Chart | Right: Extras */
-    gap: 30px;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px; /* Added more spacing */
 }
 
-/* ✅ Responsive Adjustments */
-@media screen and (max-width: 1024px) {
-    .main-content {
-        grid-template-columns: 1fr; /* Stack sections on smaller screens */
-    }
-
-    .face-chart-container {
-        grid-template-columns: 1fr; /* Stack face chart elements */
-    }
-
-    .character-extras-container {
-        grid-template-columns: 1fr; /* Stack extras */
-    }
-
-    .film-color-palette {
-        width: 100%;
-    }
+/* ✅ Digital Face Chart Now Separate */
+#digital-face-chart {
+    margin-top: 30px; /* Extra spacing */
 }
 
-/* ✅ Left Side: Character Profiles & Digital Face Chart */
-.left-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 100%;
-}
-
-/* ✅ Right Side: Moodboards, Notes, Lookbooks */
-.right-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    align-items: flex-start;
-    width: 100%;
-}
-
-/* 🎭 Character Profiles */
-.character-section {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-}
-
-/* 🎭 Character Form */
-.character-form {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-/* 🎭 Character Profile Cards */
-.character-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 15px;
-}
-
-/* 🎭 Character Card */
-.character-card {
-    background: white;
-    padding: 12px;
-    border-radius: 12px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.character-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-/* 🎭 Digital Face Chart */
-.digital-face-chart {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    margin-top: 30px; /* ✅ Ensures it's **separate** from Character Profiles */
-}
-
-/* 📌 Face Chart Layout */
-.face-chart-container {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
-    gap: 20px;
-    align-items: start;
-}
-
-/* ✅ Left: Upload & Saved Looks */
-.face-chart-left {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* ✅ Center: Editable Face Chart */
-.face-chart-center {
-    background: #F5F5F5;
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px;
-}
-
-/* ✅ Right: Makeup & Hair Tools */
-.face-chart-right {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* ✅ Rounded Buttons */
-.tool-btn {
-    padding: 10px;
-    border: none;
-    background: linear-gradient(145deg, #ff7799, #ff3366);
-    color: white;
-    border-radius: 50px;
-    font-weight: bold;
-    transition: 0.2s;
-    text-align: center;
-    font-size: 14px;
-}
-
-.tool-btn:hover {
-    transform: scale(1.05);
-}
-
-/* 🎨 Film Color Palette */
-.film-color-palette {
-    width: 100%;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-}
-
-/* ✅ Moodboards, Notes, Lookbooks Grid */
+/* ✅ Extra Sections No Longer Overlapping */
 .character-extras-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    width: 100%;
+}
+
+/* ✅ Responsive Fixes */
+@media screen and (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .character-extras-container {
+        grid-template-columns: 1fr;
+    }
 }
