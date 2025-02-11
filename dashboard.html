@@ -3,41 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Checks Happy</title>
+    <title>Character Breakdown & Design</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Main Dashboard Content -->
-        <div class="dashboard-main">
-            <h1>Welcome to Your Dashboard</h1>
-            <h2 id="project-title">Project: </h2>
-            <p>Customize your workspace by adding your most-used tools.</p>
+    <div class="character-breakdown-container">
+        <h1>Character Breakdown & Design</h1>
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+
+        <!-- 🎭 Character Profiles Section (Replace old version with this) -->
+        <div class="character-section">
+            <h2>🎭 Character Profiles</h2>
+
+            <!-- ✅ Form to Add Characters -->
+            <form id="character-form">
+                <input type="text" id="character-name" placeholder="Character Name" required>
+                <input type="text" id="actor-name" placeholder="Actor Name" required>
+                <input type="number" id="character-age" placeholder="Age" required>
+                <input type="text" id="skin-tone" placeholder="Skin Tone">
+                <input type="text" id="hair-type" placeholder="Hair Type">
+                <textarea id="special-requirements" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
+                <input type="file" id="character-image" accept="image/*">
+                <button type="button" id="addCharacter">➕ Add Character</button>
+            </form>
+
+            <!-- ✅ Dynamic Character Grid -->
+            <div id="character-list" class="character-grid"></div>
         </div>
 
-        <!-- Sidebar Menu -->
-        <aside class="sidebar">
-            <h3>Services</h3>
-            <ul class="service-menu">
-                <li><a href="script-breakdown.html">📜 Script Breakdown</a></li>
-                <li><a href="character-breakdown.html">🧑‍🎨 Character Breakdown & Design</a></li>
-                <li><a href="schedule.html">📅 Schedule</a></li>
-                <li><a href="budgeting.html">💰 Budgeting & Spending</a></li>
-                <li><a href="continuity.html">🎬 Continuity</a></li>
-            </ul>
-        </aside>
-    </div>
+        <!-- 🎨 Film Color Palette Section -->
+        <div class="character-section film-color-palette">
+            <h2>🎨 Film Color Palette</h2>
+            <div class="palette-container">
+                <div class="color-wheel-container">
+                    <input type="color" id="colorWheel" class="color-wheel">
+                </div>
+                <div class="color-palette">
+                    <div id="colorSwatches" class="swatches-grid"></div>
+                    <button id="resetPalette">Reset Palette</button>
+                </div>
+            </div>
+        </div>
 
-    <!-- JavaScript to Load Project Name from URL -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const params = new URLSearchParams(window.location.search);
-            const projectName = params.get("project");
+        <!-- 📝 Moodboards Section -->
+        <div class="character-section">
+            <h2>Moodboards</h2>
+            <div class="moodboard-upload" onclick="document.getElementById('moodboard-input').click()">Drag & Drop Images Here</div>
+            <input type="file" id="moodboard-input" accept="image/*" multiple style="display: none;">
+            <div class="moodboard-grid" id="moodboard-grid"></div>
+        </div>
 
-            if (projectName) {
-                document.getElementById("project-title").textContent = `Project: ${decodeURIComponent(projectName)}`;
-            }
-        });
-    </script>
+        <!-- 📝 Notes Section -->
+        <div class="character-section">
+            <h2>📝 Character Notes</h2>
+            <textarea id="characterNotes" placeholder="Write your notes here..." rows="5"></textarea>
+            <button id="saveNotes">Save Notes</button>
+            <p id="notesMessage" style="color: green; display: none;">✅ Notes saved!</p>
+        </div>
+
+        <!-- 📚 Lookbooks Section -->
+        <div class="character-section">
+            <h2>Lookbooks</h2>
+            <div class="lookbook-grid" id="lookbook-grid"></div>
+        </div>
+    </div> <!-- ✅ Closing character-breakdown-container -->
+
+    <!-- ✅ JavaScript Files -->
+    <script src="assets/js/character-breakdown.js"></script>
+    <script src="assets/js/filmColorPalette.js"></script>
 </body>
 </html>
