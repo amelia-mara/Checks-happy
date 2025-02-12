@@ -11,25 +11,32 @@ document.addEventListener("DOMContentLoaded", function () {
             let swatch = document.createElement("div");
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
-            
-            // ✅ Clicking the swatch opens the system color picker
-            swatch.addEventListener("click", function () {
-                let colorInput = document.createElement("input");
-                colorInput.type = "color";
-                colorInput.value = color; // Set initial value
-                colorInput.style.position = "absolute";
-                colorInput.style.opacity = 0;
 
-                // ✅ When the user selects a color, update the swatch
-                colorInput.addEventListener("input", function () {
-                    palette[index] = colorInput.value;
-                    swatch.style.backgroundColor = colorInput.value;
+            // ✅ Attach a color picker directly on click
+            swatch.addEventListener("click", function () {
+                let colorPicker = document.createElement("input");
+                colorPicker.type = "color";
+                colorPicker.value = color; // Set initial value
+                colorPicker.style.position = "absolute";
+                colorPicker.style.opacity = 0;
+                colorPicker.style.pointerEvents = "none"; // Prevent blocking interaction
+
+                // ✅ Update color when selected
+                colorPicker.addEventListener("input", function () {
+                    palette[index] = colorPicker.value;
+                    swatch.style.backgroundColor = colorPicker.value;
                 });
 
-                // ✅ Append, trigger the picker, then remove the input
-                document.body.appendChild(colorInput);
-                colorInput.click();
-                colorInput.remove();
+                // ✅ Append, trigger, then remove after selection
+                document.body.appendChild(colorPicker);
+                colorPicker.click();
+
+                // ✅ Ensure color updates immediately after closing the picker
+                colorPicker.addEventListener("change", function () {
+                    palette[index] = colorPicker.value;
+                    swatch.style.backgroundColor = colorPicker.value;
+                    document.body.removeChild(colorPicker);
+                });
             });
 
             colorSwatches.appendChild(swatch);
