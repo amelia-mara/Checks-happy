@@ -1,7 +1,7 @@
 /* 🌍 Global Styles */
 body {
     font-family: 'Lexend', sans-serif;
-    background: #CFE8E4; /* Pastel Duck Egg Blue */
+    background: #CFE8E4;
     color: #333;
     margin: 0;
     padding: 0;
@@ -35,14 +35,12 @@ header {
     margin-top: 20px;
 }
 
-/* ✅ Left and Right Panels */
 .left-panel, .right-panel {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* ✅ Character Sections */
 .character-section {
     background: white;
     padding: 20px;
@@ -51,7 +49,6 @@ header {
     width: 100%;
 }
 
-/* ✅ Character Form */
 .character-form {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -107,7 +104,18 @@ button:hover {
     padding: 20px;
 }
 
-/* ✅ Film Color Palette */
+#generateLook {
+    margin-top: 10px;
+    background: #ff7799;
+}
+
+#productList {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 .film-color-palette {
     display: flex;
     flex-direction: column;
@@ -117,7 +125,21 @@ button:hover {
     border-radius: 10px;
 }
 
-/* ✅ Moodboards, Notes & Lookbooks */
+.moodboard-upload {
+    background: #fff;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#pinterestBoard {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 .extras-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -127,7 +149,6 @@ button:hover {
     margin-top: 30px;
 }
 
-/* ✅ Notes & Lookbooks */
 textarea {
     width: 100%;
     padding: 10px;
@@ -135,16 +156,13 @@ textarea {
     border: 1px solid #ddd;
 }
 
-/* ✅ Responsive Adjustments */
 @media screen and (max-width: 1024px) {
     .main-layout {
         grid-template-columns: 1fr;
     }
-
     .face-chart-container {
         grid-template-columns: 1fr;
     }
-
     .extras-container {
         grid-template-columns: 1fr;
     }
