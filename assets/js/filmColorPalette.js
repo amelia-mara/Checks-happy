@@ -11,21 +11,22 @@ document.addEventListener("DOMContentLoaded", function () {
             let swatch = document.createElement("div");
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
+            swatch.style.position = "relative";
 
             // ✅ Create hidden color input inside each swatch
             let colorInput = document.createElement("input");
             colorInput.type = "color";
-            colorInput.style.opacity = 0;
+            colorInput.value = color; // Set initial value
             colorInput.style.position = "absolute";
-            colorInput.style.width = "0";
-            colorInput.style.height = "0";
+            colorInput.style.opacity = 0;
+            colorInput.style.pointerEvents = "none"; // Prevent interference with clicks
 
-            // ✅ Clicking the swatch opens the color picker
+            // ✅ Clicking the swatch opens the color picker instantly
             swatch.addEventListener("click", function () {
                 colorInput.click();
             });
 
-            // ✅ When a color is selected, update the swatch
+            // ✅ When a color is selected, update the swatch immediately
             colorInput.addEventListener("input", function () {
                 palette[index] = colorInput.value;
                 swatch.style.backgroundColor = colorInput.value;
