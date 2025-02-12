@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const colorSwatches = document.getElementById("colorSwatches");
 
     let selectedColor = "#FF5733"; // Default color
-    let palette = Array(10).fill("#D3D3D3"); // Default placeholder colors (10 swatches)
+    let palette = Array(10).fill("#D3D3D3"); // Default placeholder colors
 
     // ✅ Function to update the swatch UI
     function updateSwatches() {
