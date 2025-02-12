@@ -27,7 +27,14 @@ body {
     align-items: start;
 }
 
-/* 🎭 Character Profiles */
+/* ✅ Right Panel Fix */
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ✅ Character Profiles */
 .character-section {
     background: white;
     padding: 20px;
@@ -131,9 +138,42 @@ body {
     background: white;
     padding: 15px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* ✅ Moodboards, Notes, Lookbooks */
+/* ✅ Fix Swatch Grid */
+.swatches-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows */
+    gap: 10px;
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* ✅ Fix Swatch Display */
+.swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ddd;
+}
+
+/* ✅ Hover Effect */
+.swatch:hover {
+    transform: scale(1.1);
+}
+
+/* ✅ Moodboards, Notes & Lookbooks */
 .extras-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -170,5 +210,10 @@ body {
 
     .extras-container {
         grid-template-columns: 1fr;
+    }
+
+    .swatches-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
+        grid-template-rows: repeat(3, 1fr); /* 3 rows */
     }
 }
