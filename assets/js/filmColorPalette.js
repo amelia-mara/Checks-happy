@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let palette = Array(10).fill("#D3D3D3"); // Default placeholder colors
 
-    // ✅ Function to update swatch UI
+    // ✅ Function to update the swatch UI
     function updateSwatches() {
         colorSwatches.innerHTML = ""; // Clear previous swatches
         palette.forEach((color, index) => {
@@ -12,37 +12,28 @@ document.addEventListener("DOMContentLoaded", function () {
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
 
-            // ✅ Attach single-click event
+            // ✅ Create hidden color picker for each swatch
+            let colorPicker = document.createElement("input");
+            colorPicker.type = "color";
+            colorPicker.value = color;
+            colorPicker.style.opacity = 0;
+            colorPicker.style.position = "absolute";
+            colorPicker.style.pointerEvents = "none"; // Prevent interference with UI
+
+            // ✅ On Click, Open Color Picker
             swatch.addEventListener("click", function () {
-                openColorPicker(index, swatch);
+                colorPicker.click();
             });
 
+            // ✅ Update Swatch Color
+            colorPicker.addEventListener("input", function () {
+                palette[index] = colorPicker.value;
+                swatch.style.backgroundColor = colorPicker.value;
+            });
+
+            // ✅ Append to swatch
+            swatch.appendChild(colorPicker);
             colorSwatches.appendChild(swatch);
-        });
-    }
-
-    // ✅ Function to open color picker and update swatch color
-    function openColorPicker(index, swatch) {
-        let colorPicker = document.createElement("input");
-        colorPicker.type = "color";
-        colorPicker.value = palette[index];
-        colorPicker.style.position = "fixed";
-        colorPicker.style.left = "-9999px"; // Move it off-screen (iOS bug workaround)
-        document.body.appendChild(colorPicker);
-
-        // ✅ iOS Fix: Use focus() before click()
-        colorPicker.focus();
-        colorPicker.click();
-
-        // ✅ Update swatch color instantly
-        colorPicker.addEventListener("input", function () {
-            palette[index] = colorPicker.value;
-            swatch.style.backgroundColor = colorPicker.value;
-        });
-
-        // ✅ Remove picker after selection
-        colorPicker.addEventListener("change", function () {
-            document.body.removeChild(colorPicker);
         });
     }
 
