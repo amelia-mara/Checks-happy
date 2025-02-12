@@ -11,28 +11,27 @@ document.addEventListener("DOMContentLoaded", function () {
             let swatch = document.createElement("div");
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
-            swatch.style.position = "relative";
-
-            // ✅ Create hidden color input inside each swatch
-            let colorInput = document.createElement("input");
-            colorInput.type = "color";
-            colorInput.value = color; // Set initial value
-            colorInput.style.position = "absolute";
-            colorInput.style.opacity = 0;
-            colorInput.style.pointerEvents = "none"; // Prevent interference with clicks
-
-            // ✅ Clicking the swatch opens the color picker instantly
+            
+            // ✅ Clicking the swatch opens the system color picker
             swatch.addEventListener("click", function () {
+                let colorInput = document.createElement("input");
+                colorInput.type = "color";
+                colorInput.value = color; // Set initial value
+                colorInput.style.position = "absolute";
+                colorInput.style.opacity = 0;
+
+                // ✅ When the user selects a color, update the swatch
+                colorInput.addEventListener("input", function () {
+                    palette[index] = colorInput.value;
+                    swatch.style.backgroundColor = colorInput.value;
+                });
+
+                // ✅ Append, trigger the picker, then remove the input
+                document.body.appendChild(colorInput);
                 colorInput.click();
+                colorInput.remove();
             });
 
-            // ✅ When a color is selected, update the swatch immediately
-            colorInput.addEventListener("input", function () {
-                palette[index] = colorInput.value;
-                swatch.style.backgroundColor = colorInput.value;
-            });
-
-            swatch.appendChild(colorInput);
             colorSwatches.appendChild(swatch);
         });
     }
