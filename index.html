@@ -36,74 +36,46 @@
             font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
+            display: inline-block;
         }
         .upload-btn:hover {
             background-color: #005761;
         }
+        input[type="file"] {
+            display: none;
+        }
         
-        /* Project List */
-        .projects-container {
+        /* Project Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-top: 20px;
-            text-align: left;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .project-card {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
+            padding: 20px;
+            border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
         }
         .project-card:hover {
-            background: #f1f1f1;
-        }
-
-        /* Side Menu */
-        .side-menu {
-            position: fixed;
-            left: 10px;
-            top: 20px;
-            width: 150px;
-            background: #333;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        .side-menu ul {
-            list-style: none;
-            padding: 0;
-        }
-        .side-menu ul li {
-            padding: 8px;
-            cursor: pointer;
-            text-align: center;
-        }
-        .side-menu ul li:hover {
-            background: #444;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>
 <body>
-    <div class="side-menu">
-        <ul>
-            <li onclick="navigate('home')">Home</li>
-            <li onclick="navigate('script')">Script Breakdown</li>
-            <li onclick="navigate('characters')">Character Design</li>
-            <li onclick="navigate('scheduling')">Scheduling</li>
-            <li onclick="navigate('budgeting')">Budgeting</li>
-            <li onclick="navigate('continuity')">Continuity</li>
-        </ul>
-    </div>
-    
     <div class="container">
         <h1>Welcome to Checks Happy</h1>
         <label class="upload-btn" for="file-input">Upload Script</label>
         <input type="file" id="file-input" accept=".pdf,.docx,.txt" onchange="handleFileUpload(event)">
         
-        <div class="projects-container" id="projects-container"></div>
+        <div class="projects-grid" id="projects-grid"></div>
     </div>
 
     <script>
@@ -111,7 +83,6 @@
             const file = event.target.files[0];
             if (file) {
                 saveProject(file.name);
-                parseScript(file);
             }
         }
 
@@ -125,29 +96,20 @@
         }
 
         function loadProjects() {
-            const container = document.getElementById("projects-container");
-            container.innerHTML = "";
+            const grid = document.getElementById("projects-grid");
+            grid.innerHTML = "";
             let projects = JSON.parse(localStorage.getItem("projects")) || [];
-            projects.forEach(project => {
+            projects.slice(0, 3).forEach(project => {
                 const card = document.createElement("div");
                 card.classList.add("project-card");
-                card.innerHTML = `<span>${project.name}</span><span>${project.date}</span>`;
+                card.innerHTML = `<h3>${project.name}</h3><p>${project.date}</p>`;
                 card.onclick = () => openDashboard(project.name);
-                container.appendChild(card);
+                grid.appendChild(card);
             });
         }
 
         function openDashboard(projectName) {
             window.location.href = `dashboard.html?project=${encodeURIComponent(projectName)}`;
-        }
-
-        function parseScript(file) {
-            console.log("Parsing script: ", file.name);
-            // This is where we will later integrate AI-based script parsing logic
-        }
-
-        function navigate(page) {
-            alert(`Navigate to ${page}`); // Placeholder for real navigation logic
         }
 
         document.addEventListener("DOMContentLoaded", loadProjects);
