@@ -136,11 +136,17 @@
                 e.preventDefault();
                 const id = e.dataTransfer.getData("text");
                 const widget = document.getElementById(id);
-                container.appendChild(widget);
+                if (widget) {
+                    container.appendChild(widget);
+                }
             });
         }
         function navigate(page) {
-            window.location.href = `${page}.html`;
+            if (page === 'character-design') {
+                window.location.href = 'character-breakdown.html';
+            } else {
+                window.location.href = `${page}.html`;
+            }
         }
     </script>
 </body>
