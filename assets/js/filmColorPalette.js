@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
 
-            // ✅ Attach single-click event for color picker
+            // ✅ Attach single-click event
             swatch.addEventListener("click", function () {
                 openColorPicker(index, swatch);
             });
@@ -25,22 +25,22 @@ document.addEventListener("DOMContentLoaded", function () {
     function openColorPicker(index, swatch) {
         let colorPicker = document.createElement("input");
         colorPicker.type = "color";
-        colorPicker.value = palette[index]; // Set initial color
-        colorPicker.style.position = "absolute";
-        colorPicker.style.opacity = 0;
-        colorPicker.style.pointerEvents = "none"; // Prevent interaction blocking
+        colorPicker.value = palette[index];
+        colorPicker.style.position = "fixed";
+        colorPicker.style.left = "-9999px"; // Move it off-screen (iOS bug workaround)
+        document.body.appendChild(colorPicker);
 
-        // ✅ Update swatch color instantly when a color is picked
+        // ✅ iOS Fix: Use focus() before click()
+        colorPicker.focus();
+        colorPicker.click();
+
+        // ✅ Update swatch color instantly
         colorPicker.addEventListener("input", function () {
             palette[index] = colorPicker.value;
             swatch.style.backgroundColor = colorPicker.value;
         });
 
-        // ✅ Append to body, trigger click, then remove after selection
-        document.body.appendChild(colorPicker);
-        colorPicker.click();
-
-        // ✅ Ensure the picker disappears after selecting a color
+        // ✅ Remove picker after selection
         colorPicker.addEventListener("change", function () {
             document.body.removeChild(colorPicker);
         });
