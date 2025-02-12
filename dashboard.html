@@ -5,45 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #d8e6ea;
+            text-align: center;
+            padding: 30px;
+            color: #333;
+        }
+        .dashboard-container {
+            max-width: 1100px;
+            margin: auto;
+            background: #fdfbf7;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .sidebar h3 {
+            margin-bottom: 15px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .sidebar ul li:hover {
+            background: #444;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .dashboard-widgets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .widget {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: move;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            background: #444;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .back-button:hover {
+            background: #222;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
-        <h1>🎬 Production Dashboard</h1>
-
-        <!-- ✅ Navigation Links -->
-        <nav class="dashboard-nav">
-            <a href="character-breakdown.html" class="dashboard-link">🎭 Character Breakdown</a>
-            <a href="schedule.html" class="dashboard-link">📅 Shooting Schedule</a>
-            <a href="budget.html" class="dashboard-link">💰 Budget</a>
-            <a href="inventory.html" class="dashboard-link">📦 Inventory</a>
-        </nav>
-
-        <!-- ✅ Quick Stats -->
-        <div class="dashboard-stats">
-            <div class="stat-card">
-                <h3>🎭 Characters</h3>
-                <p id="characterCount">0</p>
-            </div>
-            <div class="stat-card">
-                <h3>🎬 Scenes Planned</h3>
-                <p id="sceneCount">0</p>
-            </div>
-            <div class="stat-card">
-                <h3>💰 Budget Used</h3>
-                <p id="budgetUsed">$0</p>
-            </div>
-        </div>
-
-        <!-- ✅ Recent Activity -->
-        <div class="dashboard-section">
-            <h2>📌 Recent Updates</h2>
-            <ul id="recentActivity">
-                <li>No recent activity.</li>
+        <div class="sidebar">
+            <h3>Project Menu</h3>
+            <ul>
+                <li onclick="navigate('script-breakdown')">📜 Script Breakdown</li>
+                <li onclick="navigate('character-design')">🎭 Character Design</li>
+                <li onclick="navigate('schedule')">📅 Shooting Schedule</li>
+                <li onclick="navigate('budget')">💰 Budgeting</li>
+                <li onclick="navigate('continuity')">🔄 Continuity</li>
             </ul>
         </div>
+        <div class="content">
+            <h1>🎬 Production Dashboard</h1>
+            <a href="index.html" class="back-button">⬅ Back to Projects</a>
+            <div class="dashboard-widgets" id="dashboard-widgets">
+                <div class="widget" draggable="true">📌 Recent Updates
+                    <ul id="recentActivity">
+                        <li>No recent activity.</li>
+                    </ul>
+                </div>
+                <div class="widget" draggable="true">📝 Notes & To-Dos
+                    <p>Add your notes here...</p>
+                </div>
+                <div class="widget" draggable="true">🎭 Characters Count
+                    <p id="characterCount">0</p>
+                </div>
+                <div class="widget" draggable="true">🎬 Scenes Planned
+                    <p id="sceneCount">0</p>
+                </div>
+                <div class="widget" draggable="true">💰 Budget Used
+                    <p id="budgetUsed">$0</p>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- ✅ JavaScript File for Dashboard Functionality -->
     <script src="assets/js/dashboard.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadStats();
+            enableDragAndDrop();
+        });
+        function loadStats() {
+            document.getElementById("characterCount").innerText = localStorage.getItem("characterCount") || 0;
+            document.getElementById("sceneCount").innerText = localStorage.getItem("sceneCount") || 0;
+            document.getElementById("budgetUsed").innerText = `$${localStorage.getItem("budgetUsed") || 0}`;
+        }
+        function enableDragAndDrop() {
+            const widgets = document.querySelectorAll(".widget");
+            widgets.forEach(widget => {
+                widget.addEventListener("dragstart", (e) => {
+                    e.dataTransfer.setData("text/plain", e.target.id);
+                });
+            });
+            const container = document.getElementById("dashboard-widgets");
+            container.addEventListener("dragover", (e) => e.preventDefault());
+            container.addEventListener("drop", (e) => {
+                e.preventDefault();
+                const id = e.dataTransfer.getData("text");
+                const widget = document.getElementById(id);
+                container.appendChild(widget);
+            });
+        }
+        function navigate(page) {
+            window.location.href = `${page}.html`;
+        }
+    </script>
 </body>
 </html>
