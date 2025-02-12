@@ -22,6 +22,7 @@
                     <input type="number" id="character-age" placeholder="Age">
                     <input type="text" id="character-notes" placeholder="Notes">
                     <input type="text" id="character-sensitivity" placeholder="Allergies & Sensitivities">
+                    <input type="text" id="character-requirements" placeholder="Special Requirements">
                     <button type="submit">Save Character</button>
                 </form>
             </div>
@@ -39,12 +40,17 @@
                     <div class="face-chart-center">
                         <canvas id="faceCanvas"></canvas>
                         <p>Use AI tools to apply makeup & hair changes.</p>
+                        <button id="generateLook">Generate Look</button>
                     </div>
                     <div class="face-chart-right">
                         <h3>🎨 Makeup & Hair Tools</h3>
                         <button class="tool-btn" id="foundationTool">💄 Foundation</button>
                         <button class="tool-btn" id="lipstickTool">💋 Lipstick</button>
                         <button class="tool-btn" id="hairstyleTool">💇 Hair Styling</button>
+                        <h3>💰 Product List</h3>
+                        <select id="productList">
+                            <option>Choose a product</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -67,6 +73,9 @@
                 <div class="moodboard-upload" onclick="document.getElementById('moodboard-input').click()">Drag & Drop Images Here</div>
                 <input type="file" id="moodboard-input" accept="image/*" multiple style="display: none;">
                 <div class="moodboard-grid" id="moodboard-grid"></div>
+                <h3>🔍 Load from Pinterest</h3>
+                <input type="text" id="pinterestBoard" placeholder="Enter Pinterest Board URL">
+                <button id="loadPinterest">Load</button>
             </div>
         </div>
     </div>
