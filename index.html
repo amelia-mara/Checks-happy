@@ -8,194 +8,132 @@
         /* General Styling */
         body {
             font-family: 'Lexend', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #d8e6ea;
             text-align: center;
-            padding: 50px;
+            padding: 30px;
+            color: #333;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
-            background: white;
+            background: #fdfbf7;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 15px;
             position: relative;
         }
         h1 {
-            color: #333;
             font-weight: 600;
+            color: #222;
         }
 
         /* Upload Button */
         .upload-btn {
-            background-color: #28a745;
+            background-color: #006d77;
             color: white;
             border: none;
             padding: 12px 20px;
             font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
-            transition: 0.3s;
         }
         .upload-btn:hover {
-            background-color: #218838;
+            background-color: #005761;
         }
-        label.upload-btn {
-            display: inline-block;
-            cursor: pointer;
-        }
-        input[type="file"] {
-            display: none;
-        }
-
-        /* Project Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
+        
+        /* Project List */
+        .projects-container {
             margin-top: 20px;
+            text-align: left;
         }
         .project-card {
             background: white;
             padding: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            position: relative;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-        .project-card:hover {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Project Name */
-        .project-header {
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .project-title {
-            font-weight: 600;
-            font-size: 14px;
-            color: #333;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 140px;
-        }
-        .project-date {
-            font-size: 12px;
-            color: #777;
-            margin-top: 4px;
-        }
-
-        /* Dropdown Menu */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .dropbtn {
-            background: none;
-            border: none;
-            font-size: 18px;
             cursor: pointer;
-            color: #555;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            width: 140px;
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.2s ease, transform 0.2s ease;
         }
-        .dropdown-content button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            text-align: left;
-            background: white;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .dropdown-content button:hover {
+        .project-card:hover {
             background: #f1f1f1;
         }
-        .dropdown.active .dropdown-content {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            left: 10px;
+            top: 20px;
+            width: 150px;
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+        }
+        .side-menu ul li {
+            padding: 8px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .side-menu ul li:hover {
+            background: #444;
         }
     </style>
 </head>
 <body>
+    <div class="side-menu">
+        <ul>
+            <li onclick="navigate('home')">Home</li>
+            <li onclick="navigate('script')">Script Breakdown</li>
+            <li onclick="navigate('characters')">Character Design</li>
+            <li onclick="navigate('scheduling')">Scheduling</li>
+            <li onclick="navigate('budgeting')">Budgeting</li>
+            <li onclick="navigate('continuity')">Continuity</li>
+        </ul>
+    </div>
+    
     <div class="container">
         <h1>Welcome to Checks Happy</h1>
         <label class="upload-btn" for="file-input">Upload Script</label>
         <input type="file" id="file-input" accept=".pdf,.docx,.txt" onchange="handleFileUpload(event)">
-        <div class="projects-grid" id="projects-grid"></div>
+        
+        <div class="projects-container" id="projects-container"></div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            loadProjects();
-            document.addEventListener("click", closeAllDropdowns);
-        });
-
         function handleFileUpload(event) {
             const file = event.target.files[0];
-            if (file) saveProject(file.name);
+            if (file) {
+                saveProject(file.name);
+                parseScript(file);
+            }
         }
 
         function saveProject(fileName) {
-            if (!fileName.trim()) return alert("Invalid file name.");
             let projects = JSON.parse(localStorage.getItem("projects")) || [];
-
-            if (projects.some(project => project.name === fileName)) {
-                return alert("This file is already uploaded.");
+            if (!projects.some(p => p.name === fileName)) {
+                projects.push({ name: fileName, date: new Date().toLocaleDateString() });
+                localStorage.setItem("projects", JSON.stringify(projects));
             }
-
-            projects.push({ name: fileName, date: new Date().toLocaleDateString() });
-            localStorage.setItem("projects", JSON.stringify(projects));
             loadProjects();
         }
 
         function loadProjects() {
-            const projectsGrid = document.getElementById("projects-grid");
-            projectsGrid.innerHTML = "";
+            const container = document.getElementById("projects-container");
+            container.innerHTML = "";
             let projects = JSON.parse(localStorage.getItem("projects")) || [];
-
-            projects.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            projects.forEach((project, index) => {
-                const projectCard = document.createElement("div");
-                projectCard.classList.add("project-card");
-                projectCard.onclick = () => openDashboard(project.name); // Make it clickable
-
-                projectCard.innerHTML = `
-                    <div class="project-header">
-                        <span class="project-title" title="${project.name}">${project.name}</span>
-                        <div class="dropdown">
-                            <button class="dropbtn" onclick="toggleDropdown(event, this)">⋯</button>
-                            <div class="dropdown-content">
-                                <button onclick="renameProject(${index})">Rename</button>
-                                <button onclick="updateScript(${index})">Update Script</button>
-                                <button onclick="deleteProject(${index})">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-date">${project.date}</div>`;
-                
-                projectsGrid.appendChild(projectCard);
+            projects.forEach(project => {
+                const card = document.createElement("div");
+                card.classList.add("project-card");
+                card.innerHTML = `<span>${project.name}</span><span>${project.date}</span>`;
+                card.onclick = () => openDashboard(project.name);
+                container.appendChild(card);
             });
         }
 
@@ -203,45 +141,16 @@
             window.location.href = `dashboard.html?project=${encodeURIComponent(projectName)}`;
         }
 
-        function renameProject(index) {
-            let projects = JSON.parse(localStorage.getItem("projects"));
-            let newName = prompt("New name:");
-            if (newName) {
-                projects[index].name = newName;
-                localStorage.setItem("projects", JSON.stringify(projects));
-                loadProjects();
-            }
+        function parseScript(file) {
+            console.log("Parsing script: ", file.name);
+            // This is where we will later integrate AI-based script parsing logic
         }
 
-        function updateScript(index) {
-            document.getElementById("file-input").onchange = function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    let projects = JSON.parse(localStorage.getItem("projects"));
-                    projects[index].name = file.name;
-                    localStorage.setItem("projects", JSON.stringify(projects));
-                    loadProjects();
-                }
-            };
-            document.getElementById("file-input").click();
+        function navigate(page) {
+            alert(`Navigate to ${page}`); // Placeholder for real navigation logic
         }
 
-        function deleteProject(index) {
-            let projects = JSON.parse(localStorage.getItem("projects"));
-            projects.splice(index, 1);
-            localStorage.setItem("projects", JSON.stringify(projects));
-            loadProjects();
-        }
-
-        function toggleDropdown(event, btn) {
-            event.stopPropagation();
-            closeAllDropdowns();
-            btn.parentElement.classList.toggle("active");
-        }
-
-        function closeAllDropdowns() {
-            document.querySelectorAll(".dropdown").forEach(drop => drop.classList.remove("active"));
-        }
+        document.addEventListener("DOMContentLoaded", loadProjects);
     </script>
 </body>
 </html>
