@@ -166,11 +166,17 @@ body {
     align-items: center;
     justify-content: center;
     border: 2px solid #ddd;
+    background: #D3D3D3; /* Default placeholder */
 }
 
 /* ✅ Hover Effect */
 .swatch:hover {
     transform: scale(1.1);
+}
+
+/* ✅ Hide the Color Wheel (It's Now Removed) */
+.color-wheel-container {
+    display: none;
 }
 
 /* ✅ Moodboards, Notes & Lookbooks */
