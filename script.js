@@ -98,7 +98,7 @@ function closeAllDropdowns() {
 
 function loadWidgets() {
     let dashboard = document.getElementById("dashboard-widgets");
-    dashboard.innerHTML = ""; // Clear existing widgets
+    dashboard.innerHTML = ""; 
     let widgets = JSON.parse(localStorage.getItem("userWidgets")) || [];
 
     widgets.forEach(widgetData => {
@@ -107,7 +107,6 @@ function loadWidgets() {
         widget.id = widgetData.id;
         widget.innerHTML = `<span>${widgetData.name}</span>`;
 
-        // Check if it's the Character Breakdown widget and add click event
         if (widgetData.id === "character-breakdown" || widgetData.name.includes("Character Breakdown")) {
             widget.addEventListener("click", () => {
                 window.location.href = "character-breakdown.html";
@@ -122,13 +121,11 @@ function loadWidgets() {
         widget.appendChild(deleteBtn);
         dashboard.appendChild(widget);
     });
-}
 
-    // Ensure event listeners are properly attached after widgets are loaded
     attachWidgetClickEvents();
 }
 
-// Function to attach click events to widgets after they are added to the page
+// Function to attach click events to widgets after they are added
 function attachWidgetClickEvents() {
     document.querySelectorAll(".widget").forEach(widget => {
         if (widget.textContent.includes("Character Breakdown")) {
