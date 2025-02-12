@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <h1>Character Breakdown & Design</h1>
-    <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
-
+    <header>
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+        <h1>Character Breakdown & Design</h1>
+    </header>
+    
     <div class="main-layout">
-        <!-- ✅ Left Panel: Character Profiles & Digital Face Chart -->
         <div class="left-panel">
             <div class="character-section">
                 <h2>Character Profiles</h2>
-                <form id="character-form">
+                <form id="character-form" class="character-form">
                     <input type="text" id="character-name" placeholder="Character Name">
                     <input type="text" id="actor-name" placeholder="Actor Name">
                     <input type="number" id="character-age" placeholder="Age">
@@ -25,8 +26,7 @@
                 </form>
             </div>
 
-            <!-- 🎭 Digital Face Chart -->
-            <div class="character-section" id="digital-face-chart">
+            <div class="character-section digital-face-chart">
                 <h2>🎭 Digital Face Chart</h2>
                 <div class="face-chart-container">
                     <div class="face-chart-left">
@@ -49,7 +49,6 @@
                 </div>
             </div>
 
-            <!-- 🎬 Scene Assignments -->
             <div class="character-section" id="scene-assignments">
                 <h3>🎬 Assign Look to Scene</h3>
                 <input type="text" id="sceneName" placeholder="Scene Name">
@@ -57,7 +56,6 @@
             </div>
         </div>
 
-        <!-- ✅ Right Panel: Film Color Palette & Moodboards -->
         <div class="right-panel">
             <div class="character-section" id="film-color-palette">
                 <h2>🎨 Film Color Palette</h2>
@@ -73,7 +71,6 @@
         </div>
     </div>
 
-    <!-- ✅ Character Notes & Lookbooks -->
     <div class="extras-container">
         <div class="character-section" id="character-notes">
             <h2>📝 Character Notes</h2>
@@ -81,7 +78,6 @@
             <button id="saveNotes">Save Notes</button>
             <p id="notesMessage" style="color: green; display: none;">✅ Notes saved!</p>
         </div>
-
         <div class="character-section" id="lookbooks">
             <h2>Lookbooks</h2>
             <div class="lookbook-grid" id="lookbook-grid"></div>
@@ -89,7 +85,6 @@
         </div>
     </div>
 
-    <!-- ✅ JavaScript Files -->
     <script src="assets/js/character-breakdown.js"></script>
     <script src="assets/js/filmColorPalette.js"></script>
     <script src="assets/js/digitalFaceChart.js"></script>
