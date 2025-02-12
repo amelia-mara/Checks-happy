@@ -1,7 +1,7 @@
 /* 🌍 Global Styles */
 body {
     font-family: 'Lexend', sans-serif;
-    background: #CFE8E4;
+    background: #CFE8E4; /* Pastel Duck Egg Blue */
     color: #333;
     margin: 0;
     padding: 0;
@@ -27,18 +27,51 @@ header {
 /* ✅ Main Layout */
 .main-layout {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
     gap: 30px;
     align-items: start;
-    width: 90%;
-    max-width: 1300px;
+    width: 95%;
+    max-width: 1400px;
     margin-top: 20px;
 }
 
-.left-panel, .right-panel {
+.sidebar {
+    background: #1E1E1E;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.sidebar h3 {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.sidebar ul li:hover {
+    background: #444;
+}
+
+.workspace {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background: #FDFBF7;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .character-section {
@@ -56,26 +89,32 @@ header {
 }
 
 .character-form input {
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 button {
-    padding: 10px;
+    padding: 12px;
     background: #007BFF;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 button:hover {
     background: #0056b3;
 }
 
-/* 🎭 Digital Face Chart */
 .digital-face-chart {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -104,39 +143,34 @@ button:hover {
     padding: 20px;
 }
 
-#generateLook {
-    margin-top: 10px;
-    background: #ff7799;
+.product-list-container {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 #productList {
     width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.film-color-palette {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    padding: 15px;
+    padding: 12px;
     border-radius: 10px;
+    border: 1px solid #ccc;
+    background: white;
 }
 
 .moodboard-upload {
-    background: #fff;
+    background: white;
     border: 2px dashed #ccc;
     padding: 20px;
     text-align: center;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 #pinterestBoard {
     width: 100%;
-    padding: 8px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 10px;
     border: 1px solid #ccc;
 }
 
@@ -144,16 +178,17 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    width: 90%;
-    max-width: 1300px;
+    width: 95%;
+    max-width: 1400px;
     margin-top: 30px;
 }
 
 textarea {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px;
+    border-radius: 10px;
     border: 1px solid #ddd;
+    font-size: 14px;
 }
 
 @media screen and (max-width: 1024px) {
