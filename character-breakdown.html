@@ -13,7 +13,18 @@
     </header>
     
     <div class="main-layout">
-        <div class="left-panel">
+        <aside class="sidebar">
+            <h3>Project Menu</h3>
+            <ul>
+                <li onclick="navigate('script-breakdown')">📜 Script Breakdown</li>
+                <li onclick="navigate('character-design')">🎭 Character Design</li>
+                <li onclick="navigate('schedule')">📅 Shooting Schedule</li>
+                <li onclick="navigate('budget')">💰 Budgeting</li>
+                <li onclick="navigate('continuity')">🔄 Continuity</li>
+            </ul>
+        </aside>
+
+        <div class="workspace">
             <div class="character-section">
                 <h2>Character Profiles</h2>
                 <form id="character-form" class="character-form">
@@ -60,14 +71,7 @@
                 <input type="text" id="sceneName" placeholder="Scene Name">
                 <button>Add Scene</button>
             </div>
-        </div>
 
-        <div class="right-panel">
-            <div class="character-section" id="film-color-palette">
-                <h2>🎨 Film Color Palette</h2>
-                <input type="color" id="colorPicker">
-                <div id="paletteDisplay" class="color-palette-grid"></div>
-            </div>
             <div class="character-section" id="moodboards">
                 <h2>Moodboards</h2>
                 <div class="moodboard-upload" onclick="document.getElementById('moodboard-input').click()">Drag & Drop Images Here</div>
@@ -77,20 +81,12 @@
                 <input type="text" id="pinterestBoard" placeholder="Enter Pinterest Board URL">
                 <button id="loadPinterest">Load</button>
             </div>
-        </div>
-    </div>
 
-    <div class="extras-container">
-        <div class="character-section" id="character-notes">
-            <h2>📝 Character Notes</h2>
-            <textarea id="characterNotes" placeholder="Write your notes here..." rows="5"></textarea>
-            <button id="saveNotes">Save Notes</button>
-            <p id="notesMessage" style="color: green; display: none;">✅ Notes saved!</p>
-        </div>
-        <div class="character-section" id="lookbooks">
-            <h2>Lookbooks</h2>
-            <div class="lookbook-grid" id="lookbook-grid"></div>
-            <button id="downloadLookbook">📄 Download PDF</button>
+            <div class="character-section" id="lookbooks">
+                <h2>Lookbooks</h2>
+                <div class="lookbook-grid" id="lookbook-grid"></div>
+                <button id="downloadLookbook">📄 Download PDF</button>
+            </div>
         </div>
     </div>
 
