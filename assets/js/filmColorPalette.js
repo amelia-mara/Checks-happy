@@ -1,16 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const resetButton = document.getElementById("resetPalette");
     const colorSwatches = document.getElementById("colorSwatches");
+    const resetButton = document.getElementById("resetPalette");
 
-    let palette = Array(10).fill("#D3D3D3"); // Default placeholder colors (10 swatches)
+    let palette = Array(10).fill("#D3D3D3"); // Default placeholder colors
 
-    // ✅ Create a hidden color input element
-    const colorPicker = document.createElement("input");
-    colorPicker.type = "color";
-    colorPicker.style.display = "none"; // Hide the color picker initially
-    document.body.appendChild(colorPicker); // Add it to the document
-
-    // ✅ Function to update the swatch UI
+    // ✅ Function to update swatch UI
     function updateSwatches() {
         colorSwatches.innerHTML = ""; // Clear previous swatches
         palette.forEach((color, index) => {
@@ -18,17 +12,26 @@ document.addEventListener("DOMContentLoaded", function () {
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
 
-            // ✅ Click a swatch to open the color picker
-            swatch.addEventListener("click", function () {
-                colorPicker.click(); // Open the hidden color picker
+            // ✅ Create hidden color input inside each swatch
+            let colorInput = document.createElement("input");
+            colorInput.type = "color";
+            colorInput.style.opacity = 0;
+            colorInput.style.position = "absolute";
+            colorInput.style.width = "0";
+            colorInput.style.height = "0";
 
-                // ✅ Update the swatch color when a color is selected
-                colorPicker.oninput = function () {
-                    palette[index] = colorPicker.value; // Update swatch color
-                    updateSwatches(); // Refresh the UI
-                };
+            // ✅ Clicking the swatch opens the color picker
+            swatch.addEventListener("click", function () {
+                colorInput.click();
             });
 
+            // ✅ When a color is selected, update the swatch
+            colorInput.addEventListener("input", function () {
+                palette[index] = colorInput.value;
+                swatch.style.backgroundColor = colorInput.value;
+            });
+
+            swatch.appendChild(colorInput);
             colorSwatches.appendChild(swatch);
         });
     }
