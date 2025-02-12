@@ -3,107 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Breakdown & Design</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #d8e6ea;
+            text-align: center;
+            padding: 30px;
+            color: #333;
+        }
+        .dashboard-container {
+            max-width: 1100px;
+            margin: auto;
+            background: #fdfbf7;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .sidebar h3 {
+            margin-bottom: 15px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .sidebar ul li:hover {
+            background: #444;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .dashboard-widgets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .widget {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: move;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            background: #444;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .back-button:hover {
+            background: #222;
+        }
+    </style>
 </head>
 <body>
-    <div class="character-breakdown-container">
-        <h1>Character Breakdown & Design</h1>
-        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
-
-        <!-- ✅ Main Grid Layout -->
-        <div class="main-layout">
-            <!-- ✅ Left Side: Character Profiles & Digital Face Chart -->
-            <div class="left-panel">
-                <div class="character-section">
-                    <h2>Character Profiles</h2>
-                    <form id="character-form">
-                        <input type="text" id="character-name" placeholder="Character Name">
-                        <input type="text" id="actor-name" placeholder="Actor Name">
-                        <input type="number" id="character-age" placeholder="Age">
-                        <input type="text" id="skin-tone" placeholder="Skin Tone">
-                        <input type="text" id="hair-type" placeholder="Hair Type">
-                        <textarea id="special-requirements" placeholder="Special Requirements (Wigs, Tattoos, etc.)"></textarea>
-                        <input type="file" id="character-image" accept="image/*">
-                        <button type="button" onclick="addCharacter()">Add Character</button>
-                    </form>
-                    <div id="character-list" class="character-grid"></div>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h3>Project Menu</h3>
+            <ul>
+                <li onclick="navigate('script-breakdown')">📜 Script Breakdown</li>
+                <li onclick="navigate('character-breakdown')">🎭 Character Design</li>
+                <li onclick="navigate('schedule')">📅 Shooting Schedule</li>
+                <li onclick="navigate('budget')">💰 Budgeting</li>
+                <li onclick="navigate('continuity')">🔄 Continuity</li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>🎬 Production Dashboard</h1>
+            <a href="index.html" class="back-button">⬅ Back to Projects</a>
+            <div class="dashboard-widgets" id="dashboard-widgets">
+                <div class="widget" id="widget-1" draggable="true">📌 Recent Updates
+                    <ul id="recentActivity">
+                        <li>No recent activity.</li>
+                    </ul>
                 </div>
-
-                <!-- 🎭 Digital Face Chart (Now Separate) -->
-                <div class="character-section digital-face-chart">
-                    <h2>🎭 Digital Face Chart</h2>
-                    <div class="face-chart-container">
-                        <div class="face-chart-left">
-                            <h3>📸 Upload Headshot</h3>
-                            <input type="file" id="uploadHeadshot" accept="image/*">
-                            <div id="headshotPreview" class="headshot-placeholder">No Image Uploaded</div>
-                        </div>
-
-                        <div class="face-chart-center">
-                            <canvas id="faceCanvas"></canvas>
-                            <p>Use AI tools to apply makeup & hair changes.</p>
-                        </div>
-
-                        <div class="face-chart-right">
-                            <h3>🎨 Makeup & Hair Tools</h3>
-                            <button class="tool-btn" id="foundationTool">💄 Foundation</button>
-                            <button class="tool-btn" id="eyesTool">👁️ Eyes</button>
-                            <button class="tool-btn" id="lipsTool">💋 Lips</button>
-                            <button class="tool-btn" id="hairTool">💇 Hair</button>
-                            <button class="tool-btn" id="resetFaceChart">🔄 Reset</button>
-                        </div>
-                    </div>
-
-                    <div class="scene-assignments">
-                        <h3>🎬 Assign Look to Scene</h3>
-                        <input type="text" id="sceneName" placeholder="Scene Name">
-                        <button id="saveLook">💾 Save Look</button>
-                    </div>
+                <div class="widget" id="widget-2" draggable="true">📝 Notes & To-Dos
+                    <p>Add your notes here...</p>
+                </div>
+                <div class="widget" id="widget-3" draggable="true">🎭 Characters Count
+                    <p id="characterCount">0</p>
+                </div>
+                <div class="widget" id="widget-4" draggable="true">🎬 Scenes Planned
+                    <p id="sceneCount">0</p>
+                </div>
+                <div class="widget" id="widget-5" draggable="true">💰 Budget Used
+                    <p id="budgetUsed">$0</p>
                 </div>
             </div>
-
-            <!-- ✅ Right Side: Film Color Palette -->
-            <div class="right-panel">
-                <div class="character-section film-color-palette">
-                    <h2>🎨 Film Color Palette</h2>
-                    <div class="palette-container">
-                        <div class="color-wheel-container">
-                            <input type="color" id="colorWheel" class="color-wheel">
-                        </div>
-                        <div class="color-palette">
-                            <div id="colorSwatches" class="swatches-grid"></div>
-                            <button id="resetPalette">Reset Palette</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- ✅ Closes main-layout -->
-
-        <!-- ✅ Moodboards, Notes & Lookbooks -->
-        <div class="extras-container">
-            <div class="character-section">
-                <h2>Moodboards</h2>
-                <div class="moodboard-upload">Drag & Drop Images Here</div>
-                <input type="file" id="moodboard-input" accept="image/*" multiple style="display: none;">
-            </div>
-
-            <div class="character-section">
-                <h2>📝 Character Notes</h2>
-                <textarea id="characterNotes" placeholder="Write your notes here..." rows="5"></textarea>
-                <button id="saveNotes">Save Notes</button>
-            </div>
-
-            <div class="character-section">
-                <h2>Lookbooks</h2>
-                <div id="lookbook-grid"></div>
-            </div>
-        </div> <!-- ✅ Closes extras-container -->
-
-    </div> <!-- ✅ Closes character-breakdown-container -->
-
-    <script src="assets/js/character-breakdown.js"></script>
-    <script src="assets/js/filmColorPalette.js"></script>
-    <script src="assets/js/digitalFaceChart.js"></script>
+        </div>
+    </div>
+    <script src="assets/js/dashboard.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadStats();
+            enableDragAndDrop();
+        });
+        function loadStats() {
+            document.getElementById("characterCount").innerText = localStorage.getItem("characterCount") || 0;
+            document.getElementById("sceneCount").innerText = localStorage.getItem("sceneCount") || 0;
+            document.getElementById("budgetUsed").innerText = `$${localStorage.getItem("budgetUsed") || 0}`;
+        }
+        function enableDragAndDrop() {
+            const widgets = document.querySelectorAll(".widget");
+            widgets.forEach(widget => {
+                widget.addEventListener("dragstart", (e) => {
+                    e.dataTransfer.setData("text/plain", e.target.id);
+                });
+            });
+            const container = document.getElementById("dashboard-widgets");
+            container.addEventListener("dragover", (e) => e.preventDefault());
+            container.addEventListener("drop", (e) => {
+                e.preventDefault();
+                const id = e.dataTransfer.getData("text/plain");
+                const widget = document.getElementById(id);
+                if (widget) {
+                    container.appendChild(widget);
+                }
+            });
+        }
+        function navigate(page) {
+            window.location.href = `${page}.html`;
+        }
+    </script>
 </body>
 </html>
