@@ -1,8 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const colorSwatches = document.getElementById("colorSwatches");
     const resetButton = document.getElementById("resetPalette");
+    const colorSwatches = document.getElementById("colorSwatches");
 
-    let palette = Array(10).fill("#D3D3D3"); // Default placeholder colors
+    let palette = Array(10).fill("#D3D3D3"); // Default placeholder colors (10 swatches)
+
+    // ✅ Create a hidden color input element
+    const colorPicker = document.createElement("input");
+    colorPicker.type = "color";
+    colorPicker.style.display = "none"; // Hide the color picker initially
+    document.body.appendChild(colorPicker); // Add it to the document
 
     // ✅ Function to update the swatch UI
     function updateSwatches() {
@@ -12,27 +18,17 @@ document.addEventListener("DOMContentLoaded", function () {
             swatch.classList.add("swatch");
             swatch.style.backgroundColor = color;
 
-            // ✅ Create hidden color picker for each swatch
-            let colorPicker = document.createElement("input");
-            colorPicker.type = "color";
-            colorPicker.value = color;
-            colorPicker.style.opacity = 0;
-            colorPicker.style.position = "absolute";
-            colorPicker.style.pointerEvents = "none"; // Prevent interference with UI
-
-            // ✅ On Click, Open Color Picker
+            // ✅ Click a swatch to open the color picker
             swatch.addEventListener("click", function () {
-                colorPicker.click();
+                colorPicker.click(); // Open the hidden color picker
+
+                // ✅ Update the swatch color when a color is selected
+                colorPicker.oninput = function () {
+                    palette[index] = colorPicker.value; // Update swatch color
+                    updateSwatches(); // Refresh the UI
+                };
             });
 
-            // ✅ Update Swatch Color
-            colorPicker.addEventListener("input", function () {
-                palette[index] = colorPicker.value;
-                swatch.style.backgroundColor = colorPicker.value;
-            });
-
-            // ✅ Append to swatch
-            swatch.appendChild(colorPicker);
             colorSwatches.appendChild(swatch);
         });
     }
