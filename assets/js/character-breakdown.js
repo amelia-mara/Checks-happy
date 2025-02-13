@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const productList = document.getElementById("productList");
     const pinterestInput = document.getElementById("pinterestBoard");
     const loadPinterestButton = document.getElementById("loadPinterest");
-
+    const lookbookGrid = document.getElementById("lookbook-grid");
+    const sceneInput = document.getElementById("sceneName");
+    const addSceneButton = document.getElementById("addScene");
+    
     const defaultImage = "assets/img/placeholder.jpg";
 
     function addCharacter() {
@@ -88,5 +91,17 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
         alert("Loading images from: " + boardURL);
+    });
+
+    addSceneButton.addEventListener("click", function () {
+        const sceneName = sceneInput.value.trim();
+        if (!sceneName) {
+            alert("Please enter a scene name.");
+            return;
+        }
+        const sceneItem = document.createElement("p");
+        sceneItem.textContent = `🎬 Scene: ${sceneName}`;
+        lookbookGrid.appendChild(sceneItem);
+        sceneInput.value = "";
     });
 });
